@@ -1,0 +1,21 @@
+<div>
+<h4>Coupons</h4>
+  <ul *ngFor="let coupon of coupons; let i=index">
+    <div> ID - {{coupon.id}}</div>
+    <div>Title - {{coupon.title}}</div>
+    <div> Message - {{coupon.message}}</div>
+    <div> Price - {{coupon.price}}</div>
+
+    <div> startDate - {{coupon.startDate}}</div>
+    <div> endDate - {{coupon.endDate}}</div>
+    <div> Type - {{coupon.type}}</div>
+
+    <div> Amount - {{coupon.amount}}</div>
+    <div> Image - <img src={{coupon.image}}></div>
+  </ul>
+</div>
+<div class="btn-group">
+  <button class="btn btn-danger" (click)="onDelete()" > Clean Coupons</button>
+  <button class="btn btn-primary" (click)="onSave()" > Put Coupons </button>
+</div>
+

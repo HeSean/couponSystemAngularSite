@@ -1,0 +1,13 @@
+<div>
+  <h4>Companies</h4>
+  <ul *ngFor="let company of companies; let i=index">
+    <div> ID - {{company.id}}</div>
+    <div> Name - {{company.compName}}</div>
+    <div> Email - {{company.email}}</div>
+    <div>Company Coupons - {{company.coupons}}</div>
+  </ul>
+</div>
+<div class="btn-group">
+  <button class="btn btn-danger" (click)="onDelete()"> Clean Companies</button>
+  <button class="btn btn-primary" (click)="onSave()"> Put Companies </button>
+</div>

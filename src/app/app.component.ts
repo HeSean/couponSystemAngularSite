@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'couponSystem';
+  title = 'Coupon System';
+  createdBy = 'Created By Sean Hed';
+
+  collapsed = true;
+
 }
