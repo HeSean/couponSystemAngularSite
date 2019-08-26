@@ -3,6 +3,7 @@ import { Coupon } from 'src/app/shared/coupon.model';
 import { Subscription } from 'rxjs';
 import { CouponsService } from 'src/app/shared/coupons.service';
 import { Route, Router, ActivatedRoute } from '@angular/router';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
 
 @Component({
   selector: 'app-couponlist',
@@ -15,6 +16,7 @@ export class CouponlistComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(private couponsService: CouponsService,
+              private storageService: DataStorageService,
               private route: ActivatedRoute,
               private router: Router) { }
 
@@ -24,6 +26,11 @@ export class CouponlistComponent implements OnInit, OnDestroy {
       this.coupons = coupons;
     });
     this.coupons = this.couponsService.getCoupons();
+  }
+
+  onSave() {
+    this.couponsService.setCoupons(this.coupons);
+    this.storageService.storeCoupons();
   }
 
   ngOnDestroy() {

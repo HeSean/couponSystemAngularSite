@@ -20,10 +20,13 @@ import { EditCompanyComponent } from './company/edit-company/edit-company.compon
 import { CompanyListComponent } from './company/company-list/company-list.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { CompanyItemComponent } from './company/company-list/company-item/company-item.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbMenuModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { CompanyService } from './shared/company.service';
+import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule } from '@angular/material';
+import { NavigationComponent } from './navigation/navigation.component';
+
 
 
 
@@ -41,21 +44,26 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     CompanyListComponent,
     HomePageComponent,
     CompanyItemComponent,
-    SidebarComponent,
+    NavigationComponent,
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    SidebarModule.forRoot(),
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    NbThemeModule.forRoot({ name: 'default' }),
-    NbLayoutModule,
-    NbEvaIconsModule
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatButtonModule,
+    MatIconModule
+    // NbThemeModule.forRoot({ name: 'default' }),
+    // NbLayoutModule,
+    // NbEvaIconsModule,
+    // NbMenuModule.forRoot()
   ],
-  providers: [CouponsService],
+  providers: [CouponsService, CompanyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

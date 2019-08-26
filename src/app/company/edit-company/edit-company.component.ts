@@ -47,7 +47,7 @@ export class EditCompanyComponent implements OnInit {
       id: new FormControl(id, [Validators.required]),
       compName: new FormControl(compName, [Validators.required]),
       password: new FormControl(password, [Validators.required]),
-      email: new FormControl(email, [Validators.required]),
+      email: new FormControl(email, [Validators.required, Validators.email]),
     });
   }
 
