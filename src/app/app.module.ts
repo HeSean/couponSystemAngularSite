@@ -26,6 +26,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { CompanyService } from './shared/company.service';
 import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule } from '@angular/material';
 import { NavigationComponent } from './navigation/navigation.component';
+import { DataStorageService } from './shared/data-storage.service';
 
 
 
@@ -63,7 +64,7 @@ import { NavigationComponent } from './navigation/navigation.component';
     // NbEvaIconsModule,
     // NbMenuModule.forRoot()
   ],
-  providers: [CouponsService, CompanyService],
+  providers: [CouponsService, CompanyService, DataStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

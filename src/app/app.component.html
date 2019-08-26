@@ -2,7 +2,7 @@
 
 
 
-<mat-toolbar color="warn">
+<mat-toolbar color="warn" class="crm-navigation-bar">
   <mat-toolbar-row>
 
 
@@ -14,7 +14,7 @@
       <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
 
-    <h1>Coupon System</h1>
+    <h1 [routerLink]="['/home']" routerLinkActive="router-link-active" style="cursor: pointer;">Coupon System</h1>
     <span class="menu-spacer"></span>
     <div>
       <a mat-button [routerLink]="'/coupons'"> Coupon List </a>
@@ -26,11 +26,11 @@
     </div>
 
   </mat-toolbar-row>
-
+  <!--
 
   <mat-toolbar-row>
     <span style="font-size: 16px; padding-left: 40px">Managing your coupons is easier than ever!</span>
-  </mat-toolbar-row>
+  </mat-toolbar-row> -->
 
 </mat-toolbar>
 
@@ -56,7 +56,7 @@
 -->
 
 
-<mat-sidenav-container style= "height: -webkit-fill-available;">
+<mat-sidenav-container style="height: -webkit-fill-available;">
   <mat-sidenav #drawer mode="side" opened role="navigation">
     <mat-nav-list>
       <a mat-list-item [routerLink]="'/coupons'"> Coupon List </a>

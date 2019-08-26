@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CouponsService } from '../shared/coupons.service';
 import { DataStorageService } from '../shared/data-storage.service';
+import { Coupon } from '../shared/coupon.model';
 
 @Component({
   selector: 'app-coupons-viewer',
@@ -29,6 +30,14 @@ export class CouponsViewerComponent implements OnInit {
 
   onDelete() {
     this.coupons = [];
+  }
+
+  onFetch() {
+    this.coupons = this.storageService.fetchCoupons().subscribe(() => {
+      (couponz: Coupon[]) => {
+        this.coupons = couponz;
+      }
+    });
   }
 
 }

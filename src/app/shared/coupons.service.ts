@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Coupon } from './coupon.model';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { DataStorageService } from './data-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,8 @@ export class CouponsService {
 
 
   constructor(private http: HttpClient) { }
+
+  // private coupons: Coupon[] = [];
 
   setCoupons(coupons: Coupon[]) {
     this.coupons = coupons;
