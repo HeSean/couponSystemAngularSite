@@ -25,7 +25,6 @@ import { NbThemeModule, NbLayoutModule, NbMenuModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { CompanyService } from './shared/company.service';
 import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule } from '@angular/material';
-import { NavigationComponent } from './navigation/navigation.component';
 import { DataStorageService } from './shared/data-storage.service';
 
 
@@ -45,7 +44,6 @@ import { DataStorageService } from './shared/data-storage.service';
     CompanyListComponent,
     HomePageComponent,
     CompanyItemComponent,
-    NavigationComponent,
 
   ],
   imports: [
