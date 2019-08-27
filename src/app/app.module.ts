@@ -26,6 +26,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { CompanyService } from './shared/company.service';
 import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule } from '@angular/material';
 import { DataStorageService } from './shared/data-storage.service';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -44,6 +45,7 @@ import { DataStorageService } from './shared/data-storage.service';
     CompanyListComponent,
     HomePageComponent,
     CompanyItemComponent,
+    LoginComponent,
 
   ],
   imports: [

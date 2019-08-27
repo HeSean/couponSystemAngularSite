@@ -9,11 +9,13 @@ import { CompanyListComponent } from './company/company-list/company-list.compon
 import { EditCompanyComponent } from './company/edit-company/edit-company.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { CompanyComponent } from './company/company.component';
+import { LoginComponent } from './login/login.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomePageComponent },
+  { path: 'login', component: LoginComponent },
 
   { path: 'coupons', component: CouponlistComponent },
   { path: 'coupons/viewer', component: CouponsViewerComponent },

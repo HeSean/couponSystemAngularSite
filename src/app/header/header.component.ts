@@ -12,6 +12,10 @@ export class HeaderComponent implements OnInit {
   Log = 'Login';
   collapsed = true;
 
+  title = 'Coupon System';
+  createdBy = 'Created By Sean Hed';
+
+
   constructor(private dataStorageService: DataStorageService) {
 
   }
