@@ -31,4 +31,11 @@ export class CompanyComponent implements OnInit {
     this.companies = [];
   }
 
+  onFetch(){
+    this.storageService.fetchCompanies().subscribe((companies => {
+      console.log('companies fetched by service now @company.component.ts -> ' + companies);
+      this.companies = companies;
+    }));
+  }
+
 }

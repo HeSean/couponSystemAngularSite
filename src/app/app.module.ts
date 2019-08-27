@@ -27,6 +27,12 @@ import { CompanyService } from './shared/company.service';
 import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule } from '@angular/material';
 import { DataStorageService } from './shared/data-storage.service';
 import { LoginComponent } from './login/login.component';
+import {MatCardModule} from '@angular/material/card';
+import { CustomerComponent } from './customer/customer.component';
+import { CustomerListComponent } from './customer/customer-list/customer-list.component';
+import { CustomerItemComponent } from './customer/customer-list/customer-item/customer-item.component';
+import { EditCustomerComponent } from './customer/edit-customer/edit-customer.component';
+
 
 
 
@@ -46,6 +52,10 @@ import { LoginComponent } from './login/login.component';
     HomePageComponent,
     CompanyItemComponent,
     LoginComponent,
+    CustomerComponent,
+    CustomerListComponent,
+    CustomerItemComponent,
+    EditCustomerComponent,
 
   ],
   imports: [
@@ -58,7 +68,8 @@ import { LoginComponent } from './login/login.component';
     MatSidenavModule,
     MatListModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule
     // NbThemeModule.forRoot({ name: 'default' }),
     // NbLayoutModule,
     // NbEvaIconsModule,

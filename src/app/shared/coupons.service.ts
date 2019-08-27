@@ -44,7 +44,7 @@ export class CouponsService {
   }
 
   getCoupons() {
-    console.log('returning array of coupons - ' + this.coupons);
+    console.log('returning array of coupons @ coupons.service.ts - ' + this.coupons);
     return this.coupons.slice();
   }
 

@@ -4,6 +4,9 @@ import { CouponsService } from './coupons.service';
 import { Coupon } from './coupon.model';
 import { CompanyService } from './company.service';
 import { map, tap } from 'rxjs/operators';
+import { Company } from './company.model';
+import { CustomerService } from './customer.service';
+import { Customer } from './customer.model';
 
 
 @Injectable({
@@ -11,7 +14,10 @@ import { map, tap } from 'rxjs/operators';
 })
 export class DataStorageService {
 
-  constructor(private http: HttpClient, private couponsService: CouponsService, private companyService: CompanyService) { }
+  constructor(private http: HttpClient,
+    private couponsService: CouponsService,
+    private companyService: CompanyService,
+    private customerService: CustomerService) { }
 
   storeCoupons() {
     const coupons = this.couponsService.getCoupons();
@@ -23,6 +29,24 @@ export class DataStorageService {
       });
   }
 
+
+
+  fetchCoupons() {
+    return this.http
+      .get<Coupon[]>('https://couponsystem-b1b74.firebaseio.com/coupons.json')
+      .pipe(map(coupons => {
+        console.log('fetchCoupons @data-storage.service.ts - ' + coupons);
+        return coupons.map(coupon => {
+          return {
+            ...coupon, title: coupon.title ? coupon.title : ''
+          };
+        });
+      }));
+
+  }
+
+
+
   storeCompanies() {
     const companies = this.companyService.getCompanies();
     console.log(companies.values);
@@ -32,17 +56,42 @@ export class DataStorageService {
       });
   }
 
-  fetchCoupons() {
+  fetchCompanies() {
     return this.http
-      .get<Coupon[]>('https://couponsystem-b1b74.firebaseio.com/coupons.json')
-      .pipe(map(coupons => {
-        return coupons.map(coupon => {
+      .get<Company[]>('https://couponsystem-b1b74.firebaseio.com/companies.json')
+      .pipe(map(companies => {
+        console.log('fetchCompanies @data-storage.service.ts - ' + companies);
+        return companies.map(company => {
           return {
-            ...coupon, title: coupon.title ? coupon.title : ''
+            ...company, coupons: company.coupons ? company.coupons : []
           };
         });
       }));
   }
+
+  storeCustomers() {
+    const customers = this.customerService.getCustomers();
+    console.log(customers);
+    this.http.put(
+      'https://couponsystem-b1b74.firebaseio.com/customers.json',
+      customers).subscribe(response => {
+        console.log(response);
+      });
+  }
+
+  fetchCustomers() {
+    return this.http
+      .get<Customer[]>('https://couponsystem-b1b74.firebaseio.com/customers.json')
+      .pipe(map(customers => {
+        console.log('fetchCustomers @data-storage.service.ts - ' + customers);
+        return customers.map(customer => {
+          return {
+            ...customer, coupons: customer.coupons ? customer.coupons : []
+          };
+        });
+      }));
+  }
+
 
 
 

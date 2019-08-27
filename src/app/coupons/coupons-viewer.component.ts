@@ -15,7 +15,7 @@ export class CouponsViewerComponent implements OnInit {
   constructor(private couponsService: CouponsService, private storageService: DataStorageService) { }
 
   ngOnInit() {
-    let observable = this.couponsService.couponsChanged
+    const observable = this.couponsService.couponsChanged
       .subscribe((res) => {
         console.log(res);
         this.coupons = res;
@@ -34,9 +34,10 @@ export class CouponsViewerComponent implements OnInit {
 
   onFetch() {
     this.coupons = this.storageService.fetchCoupons().subscribe(() => {
+      // tslint:disable-next-line: no-unused-expression
       (couponz: Coupon[]) => {
         this.coupons = couponz;
-      }
+      };
     });
   }
 

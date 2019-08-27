@@ -10,6 +10,9 @@ import { EditCompanyComponent } from './company/edit-company/edit-company.compon
 import { HomePageComponent } from './home-page/home-page.component';
 import { CompanyComponent } from './company/company.component';
 import { LoginComponent } from './login/login.component';
+import { CustomerListComponent } from './customer/customer-list/customer-list.component';
+import { CustomerComponent } from './customer/customer.component';
+import { EditCustomerComponent } from './customer/edit-customer/edit-customer.component';
 
 
 const routes: Routes = [
@@ -27,6 +30,10 @@ const routes: Routes = [
   { path: 'companies/new', component: EditCompanyComponent },
   { path: 'companies/:id', component: EditCompanyComponent },
 
+  { path: 'customers', component: CustomerListComponent },
+  { path: 'customers/viewer', component: CustomerComponent },
+  { path: 'customers/new', component: EditCustomerComponent },
+  { path: 'customers/:id', component: EditCustomerComponent },
 
   { path: 'not-found', component: NotFoundComponent, data: { message: 'Page not found!' } },
   { path: '**', redirectTo: '/not-found' },
