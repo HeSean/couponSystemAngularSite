@@ -1,9 +1,12 @@
+import { CouponType } from './CouponType.enum';
+
 export class Coupon {
   public id;
   public title;
   public startDate;
   public endDate;
   public amount;
+  // public type: CouponType;
   public type;
   public message;
   public price;
@@ -11,7 +14,10 @@ export class Coupon {
 
 
   // full CTOR
-  constructor(id: number, title: string, startDate: string, endDate: string, amount: number, type: string, message: string,
+  constructor(id: number, title: string, startDate: string, endDate: string, amount: number,
+    // type: CouponType,
+              type: string,
+              message: string,
               price: number, image: string) {
     this.id = id;
     this.title = title;

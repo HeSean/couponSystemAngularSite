@@ -13,9 +13,9 @@ export class CustomerService {
 
   private customers: Customer[]
     = [
-      new Customer([], 0, 'Sean', 1234),
-      new Customer([], 1, 'Michael', 1234),
-      new Customer([], 2, 'Tomer', 1234),
+      new Customer([], 1, 'Sean', 1234),
+      new Customer([], 2, 'Michael', 1234),
+      new Customer([], 3, 'Tomer', 1234),
     ];
 
   constructor(private http: HttpClient,
