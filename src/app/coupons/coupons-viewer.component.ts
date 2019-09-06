@@ -11,17 +11,19 @@ import { Coupon } from '../shared/coupon.model';
 export class CouponsViewerComponent implements OnInit {
 
 
-  coupons: any = [];
+  // coupons: any = [];
+  coupons: Array<any>;
   constructor(private couponsService: CouponsService, private storageService: DataStorageService) { }
 
   ngOnInit() {
-    const observable = this.couponsService.couponsChanged
-      .subscribe((res) => {
-        console.log(res);
-        this.coupons = res;
-      });
+    // const observable = this.couponsService.couponsChanged
+    //   .subscribe((res) => {
+    //     console.log(res);
+    //     this.coupons = res;
+    //   });
 
-    this.coupons = this.couponsService.getCoupons();
+    // this.coupons = this.couponsService.getCoupons();
+
   }
 
   onSave() {
@@ -29,16 +31,19 @@ export class CouponsViewerComponent implements OnInit {
   }
 
   onDelete() {
-    this.coupons = [];
+    this.coupons = new Array<any>();
   }
 
   onFetch() {
-    this.coupons = this.storageService.fetchCoupons().subscribe(() => {
-      // tslint:disable-next-line: no-unused-expression
-      (couponz: Coupon[]) => {
-        this.coupons = couponz;
-      };
-    });
+    // this.coupons = this.storageService.fetchCoupons().subscribe(() => {
+    //   // tslint:disable-next-line: no-unused-expression
+    //   (couponz: Coupon[]) => {
+    //     this.coupons = couponz;
+    //   };
+    // });
+    this.storageService.fetchCoupons().subscribe(data => {
+      this.coupons = data;
+    })
   }
 
 }

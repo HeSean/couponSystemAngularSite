@@ -7,6 +7,7 @@ import { map, tap } from 'rxjs/operators';
 import { Company } from './company.model';
 import { CustomerService } from './customer.service';
 import { Customer } from './customer.model';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -14,10 +15,14 @@ import { Customer } from './customer.model';
 })
 export class DataStorageService {
 
+  private fetchCouponsSpring = 'http://localhost:8080/coupon/getAll';
+  private fetchCouponsFirebase = 'https://couponsystem-b1b74.firebaseio.com/coupons.json';
+
   constructor(private http: HttpClient,
-    private couponsService: CouponsService,
-    private companyService: CompanyService,
-    private customerService: CustomerService) { }
+              // private couponsService: CouponsService,
+              // private companyService: CompanyService,
+              // private customerService: CustomerService
+              ) { }
 
   storeCoupons() {
     const coupons = this.couponsService.getCoupons();
@@ -31,18 +36,21 @@ export class DataStorageService {
 
 
 
-  fetchCoupons() {
-    return this.http
-      .get<Coupon[]>('https://couponsystem-b1b74.firebaseio.com/coupons.json')
-      .pipe(map(coupons => {
-        console.log('fetchCoupons @data-storage.service.ts - ' + coupons);
-        return coupons.map(coupon => {
-          return {
-            ...coupon, title: coupon.title ? coupon.title : ''
-          };
-        });
-      }));
+  // fetchCoupons() {
+  //   return this.http
+  //     .get<Coupon[]>(this.fetchCouponsSpring)
+  //     .pipe(map(coupons => {
+  //       console.log('fetchCoupons @data-storage.service.ts - ' + coupons);
+  //       return coupons.map(coupon => {
+  //         return {
+  //           ...coupon, title: coupon.title ? coupon.title : ''
+  //         };
+  //       });
+  //     }));
+  // }
 
+  fetchCoupons(): Observable<any> {
+    return this.http.get(this.fetchCouponsSpring);
   }
 
 
