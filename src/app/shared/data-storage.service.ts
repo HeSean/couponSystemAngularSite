@@ -25,13 +25,13 @@ export class DataStorageService {
               ) { }
 
   storeCoupons() {
-    const coupons = this.couponsService.getCoupons();
-    console.log(coupons);
-    this.http.put(
-      'https://couponsystem-b1b74.firebaseio.com/coupons.json',
-      coupons).subscribe(response => {
-        console.log(response);
-      });
+    // const coupons = this.couponsService.getCoupons();
+    // console.log(coupons);
+    // this.http.put(
+    //   'https://couponsystem-b1b74.firebaseio.com/coupons.json',
+    //   coupons).subscribe(response => {
+    //     console.log(response);
+    //   });
   }
 
 
@@ -56,12 +56,12 @@ export class DataStorageService {
 
 
   storeCompanies() {
-    const companies = this.companyService.getCompanies();
-    console.log(companies.values);
-    this.http.put('https://couponsystem-b1b74.firebaseio.com/companies.json',
-      companies).subscribe(response => {
-        console.log(response);
-      });
+    // const companies = this.companyService.getCompanies();
+    // console.log(companies.values);
+    // this.http.put('https://couponsystem-b1b74.firebaseio.com/companies.json',
+    //   companies).subscribe(response => {
+    //     console.log(response);
+    //   });
   }
 
   fetchCompanies() {
@@ -78,13 +78,13 @@ export class DataStorageService {
   }
 
   storeCustomers() {
-    const customers = this.customerService.getCustomers();
-    console.log(customers);
-    this.http.put(
-      'https://couponsystem-b1b74.firebaseio.com/customers.json',
-      customers).subscribe(response => {
-        console.log(response);
-      });
+    // const customers = this.customerService.getCustomers();
+    // console.log(customers);
+    // this.http.put(
+    //   'https://couponsystem-b1b74.firebaseio.com/customers.json',
+    //   customers).subscribe(response => {
+    //     console.log(response);
+    //   });
   }
 
   fetchCustomers() {
