@@ -8,6 +8,7 @@ import { Company } from './company.model';
 import { CustomerService } from './customer.service';
 import { Customer } from './customer.model';
 import { Observable } from 'rxjs';
+import { UpperCasePipe } from '@angular/common';
 
 
 @Injectable({
@@ -15,42 +16,58 @@ import { Observable } from 'rxjs';
 })
 export class DataStorageService {
 
-  private fetchCouponsSpring = 'http://localhost:8080/coupon/getAll';
-  private fetchCouponsFirebase = 'https://couponsystem-b1b74.firebaseio.com/coupons.json';
+  private andString = '&';
+  private loginTemplateString = 'http://localhost:8080/login?';
+  private fetchCouponsSpring = 'http://localhost:8080/company/getAllCoupons?token=';
+  private storeCouponSpring = 'http://localhost:8080/coupon/add';
+  private currentToken = '559ccbac-a2bc-4546-b4ac-b02cc98a9771';
 
   constructor(private http: HttpClient,
-              // private couponsService: CouponsService,
-              // private companyService: CompanyService,
-              // private customerService: CustomerService
-              ) { }
+    // private couponsService: CouponsService,
+    // private companyService: CompanyService,
+    // private customerService: CustomerService
+  ) { }
 
-  storeCoupons() {
-    // const coupons = this.couponsService.getCoupons();
-    // console.log(coupons);
-    // this.http.put(
-    //   'https://couponsystem-b1b74.firebaseio.com/coupons.json',
-    //   coupons).subscribe(response => {
-    //     console.log(response);
-    //   });
+  login(username, password, type: String): Observable<any> {
+    let cType = type.toLocaleUpperCase();
+    console.log(cType);
+    const loginUrl = this.loginTemplateString +
+      'name=' + username + this.andString
+      + 'password=' + password + this.andString +
+      'clientType=' + type;
+    return this.http.post(loginUrl, { observe: 'response', responseType: 'json' });
+  }
+
+  storeCoupons(coupons) {
+
+    coupons.forEach(coupon => {
+      console.log(coupon);
+      this.http.put(
+        this.storeCouponSpring,
+        coupon).subscribe(response => {
+          console.log(response);
+        });
+
+    });
   }
 
 
 
-  // fetchCoupons() {
-  //   return this.http
-  //     .get<Coupon[]>(this.fetchCouponsSpring)
-  //     .pipe(map(coupons => {
-  //       console.log('fetchCoupons @data-storage.service.ts - ' + coupons);
-  //       return coupons.map(coupon => {
-  //         return {
-  //           ...coupon, title: coupon.title ? coupon.title : ''
-  //         };
-  //       });
-  //     }));
-  // }
+  fetchCouponSpringMethod() {
+    return this.http
+      .get<Coupon[]>(this.fetchCouponsSpring + this.currentToken)
+      .pipe(map(coupons => {
+        console.log('fetchCoupons zzimz - ' + coupons);
+        return coupons.map(coupon => {
+          return {
+            ...coupon, title: coupon.title ? coupon.title : ''
+          };
+        });
+      }));
+  }
 
   fetchCoupons(): Observable<any> {
-    return this.http.get(this.fetchCouponsSpring);
+    return this.http.get<Coupon[]>(this.fetchCouponsSpring + this.currentToken);
   }
 
 

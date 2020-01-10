@@ -27,23 +27,23 @@ export class CouponsViewerComponent implements OnInit {
   }
 
   onSave() {
-    this.storageService.storeCoupons();
+    this.storageService.storeCoupons(this.coupons);
+  }
+
+
+  onFetch() {
+    this.storageService.fetchCouponSpringMethod().subscribe(data => {
+      console.log(data);
+      this.coupons = data;
+    });
+    // this.coupons = this.storageService.fetchCoupons().subscribe(() => {
+    //   (couponz: Coupon[]) => {
+    //     this.coupons = couponz;
+    //   };
+    // });
   }
 
   onDelete() {
     this.coupons = new Array<any>();
   }
-
-  onFetch() {
-    // this.coupons = this.storageService.fetchCoupons().subscribe(() => {
-    //   // tslint:disable-next-line: no-unused-expression
-    //   (couponz: Coupon[]) => {
-    //     this.coupons = couponz;
-    //   };
-    // });
-    this.storageService.fetchCoupons().subscribe(data => {
-      this.coupons = data;
-    })
-  }
-
 }

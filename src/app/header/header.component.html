@@ -12,10 +12,7 @@
 
 
     <div>
-      <a mat-button [routerLink]="'/home'"> Home </a>
-      <a mat-button [routerLink]="'/coupons/viewer'"> All Coupons </a>
-      <a mat-button [routerLink]="'/companies/viewer'"> All Companies </a>
-      <a mat-button [routerLink]="'/customers/viewer'"> All Customers </a>
+
 
     </div>
     <span class="filler"></span>
@@ -28,9 +25,9 @@
 
 
   </mat-toolbar-row>
-  <!--
-  <mat-toolbar-row>
-    <span style="font-size: 16px; padding-left: 40px">Managing your coupons is easier than ever!</span>
+
+  <!-- <mat-toolbar-row>
+    <span style="font-size: 16px; padding-left: 42px">Managing your coupons is easier than ever!</span>
   </mat-toolbar-row> -->
 </mat-toolbar>
 
@@ -40,30 +37,40 @@
 <mat-sidenav-container style="height: -webkit-fill-available;">
   <mat-sidenav #drawer mode="side" opened role="navigation">
     <mat-nav-list>
-      <a mat-list-item [routerLink]="'/coupons'"> Coupon List </a>
-      <a mat-list-item [routerLink]="'/coupons/new'"> New Coupon </a>
-      <a mat-list-item [routerLink]="'/coupons/viewer'"> All Coupons </a>
+      <b id="admin-navbar">
+        <a mat-list-item [routerLink]="'/'"> </a>
+        <a mat-list-item [routerLink]="'/companies'"> Company List </a>
+        <a mat-list-item [routerLink]="'/companies/new'"> New Company </a>
+        <a mat-list-item [routerLink]="'/customers'"> Customer List </a>
+        <a mat-list-item [routerLink]="'/customers/new'"> New Customer </a>
+      </b>
 
-      <a mat-list-item [routerLink]="'/companies'"> Company List </a>
-      <a mat-list-item [routerLink]="'/companies/new'"> New Company </a>
-      <a mat-list-item [routerLink]="'/companies/viewer'"> All Companies </a>
+      <b id="company-navbar">
+        <a mat-list-item [routerLink]="'/'"> </a>
+        <a mat-list-item [routerLink]="'/coupons'"> Coupon List </a>
+        <a mat-list-item [routerLink]="'/coupons/new'"> New Coupon </a>
+      </b>
 
+      <b id="customer-navbar">
+        <a mat-list-item [routerLink]="'/'"> </a>
+        <a mat-list-item [routerLink]="'/coupons'"> All Coupons List </a>
+        <a mat-list-item [routerLink]="'/coupons'"> Purchased Coupons List </a>
+        <a mat-list-item [routerLink]="'/coupons'"> Purchased Coupons List By Type</a>
+        <a mat-list-item [routerLink]="'/coupons'"> Purchased Coupons List By Price</a>
 
-      <a mat-list-item [routerLink]="'/customers'"> Customer List </a>
-      <a mat-list-item [routerLink]="'/customers/new'"> New Customer </a>
-      <a mat-list-item [routerLink]="'/customers/viewer'"> All Customers </a>
+      </b>
     </mat-nav-list>
   </mat-sidenav>
 
 
   <div class="container" id="wrapper">
-      <div >
-        <div class="col-md-12">
-          <br>
-          <router-outlet></router-outlet>
-        </div>
+    <div>
+      <div class="col-md-12">
+        <br>
+        <router-outlet></router-outlet>
       </div>
     </div>
+  </div>
 
 
 

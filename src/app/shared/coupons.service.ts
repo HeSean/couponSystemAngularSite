@@ -10,39 +10,11 @@ import { DataStorageService } from './data-storage.service';
 export class CouponsService {
   couponsChanged = new Subject<Coupon[]>();
 
-  private coupons: Coupon[] = [
-    new Coupon(
-      1,
-      'Seventh Popcorn Free',
-      'startDate',
-      'endDate',
-      5,
-      'FOOD',
-      'By YesPlanet',
-      15,
-      ''),
-    new Coupon(
-      2,
-      'Free Popcorn with movie', 'startDate',
-      'endDate', 5,
-      'FOOD', 'By YesPlanet', 15, ''
-    ),
-    new Coupon(3, 'Free Tent with Lederman swiss knife', 'startDate',
-      'endDate',
-      5,
-      'CAMPING', 'By Hagor', 15, '')
-  ];
+  private coupons: Coupon[];
 
 
 
   constructor(private http: HttpClient, private dataStorage: DataStorageService) { }
-//
-
-
-
-
-
-  // private coupons: Coupon[] = [];
 
   setCoupons(coupons: Coupon[]) {
     this.coupons = coupons;

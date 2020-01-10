@@ -13,11 +13,13 @@
 <hr>
 
 <div class="row">
-  <div class="col-xs-12">
+  <div class="btn-toolbar col-xs-12">
     <button [routerLink]="['/coupons/new']" routerLinkActive="router-link-active"  class="btn btn-success">
       New Coupon
     </button>
     <button class="btn btn-primary" (click)="onSave()" > Put Coupons </button>
+
+    <button class="btn btn-toolbar" (click)="onFetch()" > Fetch Coupons </button>
 
   </div>
 </div>

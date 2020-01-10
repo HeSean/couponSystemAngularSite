@@ -13,7 +13,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { RouterModule } from '@angular/router';
 import { CouponsService } from './shared/coupons.service';
 import { CouponlistComponent } from './coupons/couponlist/couponlist.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CouponItemComponent } from './coupons/couponlist/coupon-item/coupon-item.component';
 import { CompanyComponent } from './company/company.component';
 import { EditCompanyComponent } from './company/edit-company/edit-company.component';
@@ -32,6 +32,7 @@ import { CustomerComponent } from './customer/customer.component';
 import { CustomerListComponent } from './customer/customer-list/customer-list.component';
 import { CustomerItemComponent } from './customer/customer-list/customer-item/customer-item.component';
 import { EditCustomerComponent } from './customer/edit-customer/edit-customer.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 
@@ -56,6 +57,7 @@ import { EditCustomerComponent } from './customer/edit-customer/edit-customer.co
     CustomerListComponent,
     CustomerItemComponent,
     EditCustomerComponent,
+    SignupComponent,
 
   ],
   imports: [
@@ -69,7 +71,8 @@ import { EditCustomerComponent } from './customer/edit-customer/edit-customer.co
     MatListModule,
     MatButtonModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    FormsModule
     // NbThemeModule.forRoot({ name: 'default' }),
     // NbLayoutModule,
     // NbEvaIconsModule,

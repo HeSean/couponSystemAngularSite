@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { CustomerListComponent } from './customer/customer-list/customer-list.component';
 import { CustomerComponent } from './customer/customer.component';
 import { EditCustomerComponent } from './customer/edit-customer/edit-customer.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 const routes: Routes = [
@@ -34,6 +35,9 @@ const routes: Routes = [
   { path: 'customers/viewer', component: CustomerComponent },
   { path: 'customers/new', component: EditCustomerComponent },
   { path: 'customers/:id', component: EditCustomerComponent },
+
+  { path: 'signup', component: SignupComponent },
+
 
   { path: 'not-found', component: NotFoundComponent, data: { message: 'Page not found!' } },
   { path: '**', redirectTo: '/not-found' },

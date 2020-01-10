@@ -10,11 +10,7 @@ export class CompanyService {
 
   companiesChanged = new Subject<Company[]>();
 
-  private companies: Company[] = [
-    new Company([], 1, 'Yesplanet', '1234', 'Yesplanet@gmail.com'),
-    new Company([], 2, 'Hagor', '1234', 'Hagor@gmail.com'),
-    new Company([], 3, 'Japanika', '1234', 'Japanika@gmail.com')
-  ];
+  private companies: Company[];
   constructor(private http: HttpClient) { }
 
   setCompanies(companies: Company[]) {

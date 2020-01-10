@@ -28,13 +28,28 @@ export class CouponlistComponent implements OnInit, OnDestroy {
     this.coupons = this.couponsService.getCoupons();
   }
 
+  getList(){
+    this.storageService.fetchCoupons().subscribe(data => {
+      console.log(data);
+      this.coupons = data;
+    });
+  }
+
   onSave() {
     this.couponsService.setCoupons(this.coupons);
-    this.storageService.storeCoupons();
+    this.storageService.storeCoupons(null);
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  onFetch() {
+    // this.coupons = this.storageService.fetchCoupons().subscribe(() => {
+    //   (couponz: Coupon[]) => {
+    //     this.coupons = couponz;
+    //   };
+    // });
   }
 
 
