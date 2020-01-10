@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CompanyService } from 'src/app/shared/company.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
+import { stringify } from 'querystring';
+import { Company } from 'src/app/shared/company.model';
 
 @Component({
   selector: 'app-edit-company',
@@ -13,10 +15,12 @@ export class EditCompanyComponent implements OnInit {
   companyForm: FormGroup;
   id: number;
   editMode = false;
+  token = '';
 
-  constructor(private companyService: CompanyService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private storageService: DataStorageService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    this.token = this.storageService.getToken();
     this.route.params.subscribe(
       (params: Params) => {
         this.id = +params.id;
@@ -27,35 +31,34 @@ export class EditCompanyComponent implements OnInit {
   }
 
   private initForm() {
-    let id = 0;
-    let compName = '';
-    let password = '';
-    let email = '';
-    let coupons: any[] = [];
+    this.companyForm = new FormGroup({
+      id: new FormControl(0, [Validators.required]),
+      compName: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+    });
 
     if (this.editMode) {
-      const company = this.companyService.getCompany(this.id);
-      console.log('company retrived ' + company);
-      id = company.id;
-      compName = company.compName;
-      password = company.password;
-      email = company.email;
-      coupons = company.coupons;
+      this.storageService.getCompany(this.token, this.id).subscribe(res => {
+        this.companyForm.controls.compName.setValue(res.body.name);
+        this.companyForm.controls.id.setValue(res.body.id);
+        this.companyForm.controls.password.setValue(res.body.password);
+        this.companyForm.controls.email.setValue(res.body.email);
+      });
     }
-
-    this.companyForm = new FormGroup({
-      id: new FormControl(id, [Validators.required]),
-      compName: new FormControl(compName, [Validators.required]),
-      password: new FormControl(password, [Validators.required]),
-      email: new FormControl(email, [Validators.required, Validators.email]),
-    });
   }
 
   onSubmit() {
+    const company = new Company(
+      this.id,
+      this.companyForm.controls.compName.value,
+      this.companyForm.controls.password.value,
+      this.companyForm.controls.email.value);
+
     if (this.editMode) {
-      this.companyService.updateCompany(this.id, this.companyForm.value);
+      this.storageService.updateCompany(this.token, this.id, this.companyForm.value);
     } else {
-      this.companyService.addCompany(this.companyForm.value);
+      this.storageService.createCompany(this.token, this.companyForm.value);
     }
     this.onCancel();
   }

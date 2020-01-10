@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Company } from 'src/app/shared/company.model';
 import { Subscription } from 'rxjs';
-import { CompanyService } from 'src/app/shared/company.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 
@@ -10,33 +9,24 @@ import { DataStorageService } from 'src/app/shared/data-storage.service';
   templateUrl: './company-list.component.html',
   styleUrls: ['./company-list.component.scss']
 })
-export class CompanyListComponent implements OnInit, OnDestroy {
+export class CompanyListComponent implements OnInit {
 
   companies: Company[];
-  subscription: Subscription;
+  token = '';
 
-  constructor(private companyService: CompanyService,
-              private storageService: DataStorageService,
-              private route: ActivatedRoute,
-              private router: Router) { }
+  constructor(
+    private storageService: DataStorageService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
-    this.subscription = this.companyService.companiesChanged.subscribe(
-      (companys: Company[]) => {
-        this.companies = companys;
-      }
-    );
-    this.companies = this.companyService.getCompanies();
+    this.token = this.storageService.getToken();
+    this.refreshList();
   }
 
-
-  onSave() {
-    this.companyService.setCompanies(this.companies);
-    this.storageService.storeCompanies();
+  refreshList() {
+    this.storageService.getAllCompanies(this.token).subscribe(res => {
+      this.companies = res.body;
+    });
   }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
 }

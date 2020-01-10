@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { DataStorageService } from '../shared/data-storage.service';
 
 
@@ -17,11 +17,11 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
   returnUrl: string;
-
+  type = 'Admin';
   contactMethods = [
-    { id: 1, label: 'Admin' },
-    { id: 2, label: 'Company' },
-    { id: 3, label: 'Customer' }
+    { id: 0, label: 'ADMINISTRATOR' },
+    { id: 1, label: 'COMPANY' },
+    { id: 2, label: 'CUSTOMER' }
   ];
 
   contact = {
@@ -45,7 +45,10 @@ export class LoginComponent implements OnInit {
     });
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+
+    // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
   }
 
   // convenience getter for easy access to form fields
@@ -59,8 +62,14 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.storageService.login(this.loginForm.value.username, this.loginForm.value.password, 1).subscribe(res => {
-      console.log(res.body);
-    });
+    this.storageService.login(
+      this.loginForm.value.username,
+      this.loginForm.value.password,
+      this.contactMethods[this.type].label)
+      .subscribe(res => {
+        console.log(res);
+        this.storageService.setToken(res);
+        this.router.navigate(['../home']);
+      });
   }
 }

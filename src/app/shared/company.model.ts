@@ -3,15 +3,14 @@ import { Coupon } from './coupon.model';
 export class Company {
   coupons: Coupon[];
   id: number;
-  compName;
+  name;
   password;
   email;
 
 
-  constructor(coupons, id, companyName, password, email) {
-    this.coupons = coupons;
+  constructor(id, companyName, password, email) {
     this.id = id;
-    this.compName = companyName;
+    this.name = companyName;
     this.password = password;
     this.email = email;
   }

@@ -6,7 +6,7 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <app-coupon-item *ngFor="let item of coupons; let i = index" [coupon]="item" [index]="i"></app-coupon-item>
+    <app-coupon-item *ngFor="let item of coupons; let i = index" [coupon]="item" [index]="item.id"></app-coupon-item>
   </div>
 </div>
 
@@ -14,12 +14,9 @@
 
 <div class="row">
   <div class="btn-toolbar col-xs-12">
-    <button [routerLink]="['/coupons/new']" routerLinkActive="router-link-active"  class="btn btn-success">
+    <button [routerLink]="['/coupons/new']" routerLinkActive="router-link-active" class="btn btn-success">
       New Coupon
     </button>
-    <button class="btn btn-primary" (click)="onSave()" > Put Coupons </button>
-
-    <button class="btn btn-toolbar" (click)="onFetch()" > Fetch Coupons </button>
-
+    <button class="btn btn-primary" (click)="refreshList()"> Refresh </button>
   </div>
 </div>

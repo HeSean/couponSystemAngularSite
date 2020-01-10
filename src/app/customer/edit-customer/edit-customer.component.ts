@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CustomerService } from 'src/app/shared/customer.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-edit-customer',
@@ -13,12 +14,15 @@ export class EditCustomerComponent implements OnInit {
   customerForm: FormGroup;
   id: number;
   editMode = false;
+  token = '';
 
-  constructor(private customerService: CustomerService,
-              private route: ActivatedRoute,
-              private router: Router) { }
+  constructor(
+    private storageService: DataStorageService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
+    this.token = this.storageService.getToken();
     this.route.params.subscribe(
       (params: Params) => {
         this.id = +params.id;
@@ -30,33 +34,29 @@ export class EditCustomerComponent implements OnInit {
   }
 
   initForm() {
-    let id = 0;
-    let custName = '';
-    let password = '';
-    let coupons: any[] = [];
+    this.customerForm = new FormGroup({
+      id: new FormControl(0, [Validators.required]),
+      custName: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+    });
 
     if (this.editMode) {
-      const customer = this.customerService.getCustomer(this.id);
-      console.log('customer retrieved  @edit-customer- ' + customer.custName);
-      id = customer.id;
-      custName = customer.custName;
-      password = customer.password;
-      coupons = customer.coupons;
+      this.storageService.getCustomer(this.token, this.id).subscribe(res => {
+        console.log('customer retrieved  @edit-customer- ' + res.body.name);
+        this.customerForm.controls.id.setValue(res.body.id);
+        this.customerForm.controls.custName.setValue(res.body.name);
+        this.customerForm.controls.password.setValue(res.body.password);
+      });
     }
-    this.customerForm = new FormGroup({
-      id: new FormControl(id, [Validators.required]),
-      custName: new FormControl(custName, [Validators.required]),
-      password: new FormControl(password, [Validators.required]),
-      // coupons: new FormControl(coupons, Validators.required)
-    });
+
   }
 
 
   onSubmit() {
     if (this.editMode) {
-      this.customerService.updateCustomer(this.id, this.customerForm.value);
+      this.storageService.updateCustomer(this.token, this.id, this.customerForm.value);
     } else {
-      this.customerService.addCustomer(this.customerForm.value);
+      this.storageService.createCustomer(this.token, this.customerForm.value);
     }
     this.onCancel();
   }

@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Coupon } from 'src/app/shared/coupon.model';
 import { Subscription } from 'rxjs';
-import { CouponsService } from 'src/app/shared/coupons.service';
 import { Route, Router, ActivatedRoute } from '@angular/router';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 
@@ -10,47 +9,37 @@ import { DataStorageService } from 'src/app/shared/data-storage.service';
   templateUrl: './couponlist.component.html',
   styleUrls: ['./couponlist.component.scss']
 })
-export class CouponlistComponent implements OnInit, OnDestroy {
+export class CouponlistComponent implements OnInit {
 
   coupons: Coupon[];
-  subscription: Subscription;
+  token = '';
 
-  constructor(private couponsService: CouponsService,
-              private storageService: DataStorageService,
-              private route: ActivatedRoute,
-              private router: Router) { }
+  constructor(
+    private storageService: DataStorageService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
-    this.subscription = this.couponsService.couponsChanged.subscribe(
-    (coupons: Coupon[]) => {
-      this.coupons = coupons;
-    });
-    this.coupons = this.couponsService.getCoupons();
+    this.token = this.storageService.getToken();
+    console.log(this.token);
+    this.refreshList();
   }
 
-  getList(){
-    this.storageService.fetchCoupons().subscribe(data => {
-      console.log(data);
-      this.coupons = data;
+  refreshList() {
+    console.log(this.token);
+
+    this.storageService.getAllCoupons(this.token).subscribe(res => {
+      console.log(res);
+      this.coupons = res.body;
     });
   }
 
   onSave() {
-    this.couponsService.setCoupons(this.coupons);
-    this.storageService.storeCoupons(null);
+
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
 
-  onFetch() {
-    // this.coupons = this.storageService.fetchCoupons().subscribe(() => {
-    //   (couponz: Coupon[]) => {
-    //     this.coupons = couponz;
-    //   };
-    // });
-  }
+
 
 
 

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import { CouponsService } from '../../shared/coupons.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { CouponType2LabelMapping, CouponType } from 'src/app/shared/CouponType.enum';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
+import { stringify } from 'querystring';
+import { Coupon } from 'src/app/shared/coupon.model';
 
 
 @Component({
@@ -16,75 +18,68 @@ export class EditCouponComponent implements OnInit {
   id: number;
   editMode = false;
   couponTypeLabel = CouponType2LabelMapping;
+  token = '';
 
   couponTypes = Object.values(this.couponTypeLabel);
 
 
-constructor(private couponsService: CouponsService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private storageService: DataStorageService, private route: ActivatedRoute, private router: Router) { }
 
-ngOnInit() {
-  this.route.params.subscribe(
-    (params: Params) => {
-      this.id = +params.id;
-      this.editMode = params.id != null;
-      console.log('Coupons editMode - ' + this.editMode);
-      this.initForm();
-    }
-  );
-}
+  ngOnInit() {
+    this.token = this.storageService.getToken();
+    this.route.params.subscribe(
+      (params: Params) => {
+        this.id = +params.id;
+        this.editMode = params.id != null;
+        console.log('Coupons editMode - ' + this.editMode);
+        this.initForm();
+      }
+    );
+  }
 
   private initForm() {
-  let title = '';
-  let startDate = '';
-  let endDate = '';
-  let amount = 0;
-  let type = CouponType.FOOD;
-  let message = '';
-  let price = 0;
-  let image = '';
+    this.couponForm = new FormGroup({
+      title: new FormControl('', [Validators.required]),
+      startDate: new FormControl('', [Validators.required]),
+      endDate: new FormControl('', Validators.required),
+      amount: new FormControl(0, Validators.required),
+      type: new FormControl(CouponType.FOOD, Validators.required),
+      message: new FormControl('', Validators.required),
+      price: new FormControl(0, Validators.required),
+      imagePath: new FormControl('', Validators.required)
+    });
 
-  if (this.editMode) {
-    const coupon = this.couponsService.getCoupon(this.id);
-    console.log('coupon retrieved - ' + coupon);
-    title = coupon.title;
-    startDate = coupon.startDate;
-    endDate = coupon.endDate;
-    amount = coupon.amount;
-    type = coupon.type;
-    message = coupon.message;
-    price = coupon.price;
-    image = coupon.image;
+    if (this.editMode) {
+      this.storageService.getCoupon(this.token, this.id).subscribe(res => {
+        this.couponForm.controls.title.setValue(res.body.title);
+        this.couponForm.controls.amount.setValue(res.body.amount);
+        this.couponForm.controls.price.setValue(res.body.price);
+        this.couponForm.controls.message.setValue(res.body.message);
+        this.couponForm.controls.imagePath.setValue(res.body.image);
+        this.couponForm.controls.startDate.setValue(res.body.startDate);
+        this.couponForm.controls.endDate.setValue(res.body.endDate);
+      });
+    }
   }
 
-  this.couponForm = new FormGroup({
-    title: new FormControl(title, [Validators.required]),
-    startDate: new FormControl(startDate, [Validators.required]),
-    endDate: new FormControl(endDate, Validators.required),
-    amount: new FormControl(amount, Validators.required),
-    type: new FormControl(type, Validators.required),
-    message: new FormControl(message, Validators.required),
-    price: new FormControl(price, Validators.required),
-    imagePath: new FormControl(image, Validators.required)
-  });
-}
 
 
-onSubmit() {
-  if (this.editMode) {
-    this.couponsService.updateCoupon(this.id, this.couponForm.value);
-  } else {
-    this.couponsService.addCoupon(this.couponForm.value);
+  onSubmit() {
+    if (this.editMode) {
+      this.storageService.updateCoupon(this.token, this.id, this.couponForm.value);
+    } else {
+      this.storageService.createCoupon(this.token, this.couponForm.value);
+    }
+    this.onCancel();
   }
-  this.onCancel();
-}
 
-onCancel() {
-  this.router.navigate(['../'], { relativeTo: this.route });
-}
+  onCancel() {
+    this.router.navigate(['../'], { relativeTo: this.route });
+  }
 
-logForm() {
-  console.log(this.couponForm);
-}
+  logForm() {
+    console.log(this.couponForm);
+  }
 
 
 }

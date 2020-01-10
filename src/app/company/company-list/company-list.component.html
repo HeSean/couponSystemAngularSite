@@ -6,7 +6,7 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <app-company-item *ngFor="let item of companies; let i = index" [company]="item" [index]="i"></app-company-item>
+    <app-company-item *ngFor="let item of companies; let i = index" [company]="item" [index]="item.id"></app-company-item>
   </div>
 </div>
 
@@ -17,7 +17,7 @@
     <button [routerLink]="['/companies/new']" routerLinkActive="router-link-active"  class="btn btn-success">
       New Company
     </button>
-    <button class="btn btn-primary" (click)="onSave()" > Put Companies </button>
+    <button class="btn btn-primary" (click)="refreshList()"> Refresh </button>
 
   </div>
 </div>
