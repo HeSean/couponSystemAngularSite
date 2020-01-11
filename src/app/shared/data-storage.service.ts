@@ -11,11 +11,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DataStorageService {
-
-
   private andString = '&';
   private currentToken = '';
-  private loginTemplateString = 'http://localhost:8080/login?';
+  private currentUser = 'GUEST';
+  private clienTypeString = 'clientType=';
+  private loginUrl = 'http://localhost:8080/login?';
+  private logoutUrl = 'http://localhost:8080/blogout?token=';
 
   // Admin URL
   private companyIdString = 'companyId=';
@@ -57,12 +58,17 @@ export class DataStorageService {
 
   login(username, password, type: string): Observable<any> {
     const reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'No-Auth': 'True' });
-    const cType = type.toUpperCase();
-    const loginUrl = this.loginTemplateString +
+    this.currentUser = type.toUpperCase();
+    const loginUrl = this.loginUrl +
       'name=' + username + this.andString
       + 'password=' + password + this.andString +
-      'clientType=' + cType;
+      'clientType=' + this.currentUser;
     return this.http.post(loginUrl, { headers: reqHeader, observe: 'response', responseType: 'json' });
+  }
+
+  logout(token: string, type: string) {
+    const url = this.logoutUrl + this.currentToken + this.andString + this.clienTypeString + type;
+    return this.http.post(url, { observe: 'response', responseType: 'json' });
   }
 
   // Admin Methods
@@ -179,6 +185,16 @@ export class DataStorageService {
   getToken() {
     return this.currentToken;
   }
+
+  getCurrentUser() {
+    return this.currentUser;
+  }
+
+  setCurrentUser(){
+    this.currentUser = 'GUEST';
+  }
+
+
 
 
 

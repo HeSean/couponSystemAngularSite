@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { DataStorageService } from '../shared/data-storage.service';
+import { SidenavComponent } from '../header/sidenav/sidenav.component';
 
 
 @Component({
@@ -33,8 +34,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router, private storageService: DataStorageService
-
+    private router: Router,
+    private storageService: DataStorageService
   ) {
   }
 

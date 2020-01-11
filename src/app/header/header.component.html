@@ -7,30 +7,13 @@
 
     <h1 [routerLink]="['/home']" routerLinkActive="router-link-active" style="cursor: pointer;">Coupon System</h1>
     <span class="menu-spacer"></span>
-
-
-
-
     <div>
-
-
     </div>
     <span class="filler"></span>
     <a mat-button [routerLink]="'/login'" *ngIf="!loggedIn"> Login </a>
-
     <a mat-button (click)="logout()" *ngIf="loggedIn"> Logout </a>
 
-
-
-
-
-
-
   </mat-toolbar-row>
-
-  <!-- <mat-toolbar-row>
-    <span style="font-size: 16px; padding-left: 42px">Managing your coupons is easier than ever!</span>
-  </mat-toolbar-row> -->
 </mat-toolbar>
 
 
@@ -38,30 +21,7 @@
 
 <mat-sidenav-container style="height: -webkit-fill-available;">
   <mat-sidenav #drawer mode="side" opened role="navigation">
-    <mat-nav-list>
-      <b id="admin-navbar">
-        <a mat-list-item [routerLink]="'/'"> </a>
-        <a mat-list-item [routerLink]="'/companies'"> Company List </a>
-        <a mat-list-item [routerLink]="'/companies/new'"> New Company </a>
-        <a mat-list-item [routerLink]="'/customers'"> Customer List </a>
-        <a mat-list-item [routerLink]="'/customers/new'"> New Customer </a>
-      </b>
-
-      <b id="company-navbar">
-        <a mat-list-item [routerLink]="'/'"> </a>
-        <a mat-list-item [routerLink]="'/coupons'"> Coupon List </a>
-        <a mat-list-item [routerLink]="'/coupons/new'"> New Coupon </a>
-      </b>
-
-      <b id="customer-navbar">
-        <a mat-list-item [routerLink]="'/'"> </a>
-        <a mat-list-item [routerLink]="'/coupons'"> All Coupons List </a>
-        <a mat-list-item [routerLink]="'/coupons'"> Purchased Coupons List </a>
-        <a mat-list-item [routerLink]="'/coupons'"> Purchased Coupons List By Type</a>
-        <a mat-list-item [routerLink]="'/coupons'"> Purchased Coupons List By Price</a>
-
-      </b>
-    </mat-nav-list>
+    <app-sidenav></app-sidenav>
   </mat-sidenav>
 
 

@@ -1,0 +1,21 @@
+<mat-nav-list>
+  <b id="admin-navbar" *ngIf="currentUser == 'ADMINISTRATOR'">
+    <a mat-list-item [routerLink]="'/companies'"> Company List </a>
+    <a mat-list-item [routerLink]="'/companies/new'"> New Company </a>
+    <a mat-list-item [routerLink]="'/customers'"> Customer List </a>
+    <a mat-list-item [routerLink]="'/customers/new'"> New Customer </a>
+  </b>
+
+  <b id="company-navbar" *ngIf="currentUser == 'COMPANY'">
+    <a mat-list-item [routerLink]="'/coupons'"> Coupon List </a>
+    <a mat-list-item [routerLink]="'/coupons/new'"> New Coupon </a>
+  </b>
+
+  <b id="customer-navbar" *ngIf="currentUser == 'CUSTOMER'">
+    <a mat-list-item [routerLink]="'/coupons'"> All Coupons List </a>
+    <a mat-list-item [routerLink]="'/coupons'"> Purchased Coupons List </a>
+    <a mat-list-item [routerLink]="'/coupons'"> Purchased Coupons List By Type</a>
+    <a mat-list-item [routerLink]="'/coupons'"> Purchased Coupons List By Price</a>
+
+  </b>
+</mat-nav-list>

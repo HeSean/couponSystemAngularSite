@@ -28,6 +28,7 @@ import { CustomerListComponent } from './customer/customer-list/customer-list.co
 import { CustomerItemComponent } from './customer/customer-list/customer-item/customer-item.component';
 import { EditCustomerComponent } from './customer/edit-customer/edit-customer.component';
 import { SignupComponent } from './signup/signup.component';
+import { SidenavComponent } from './header/sidenav/sidenav.component';
 
 
 
@@ -50,6 +51,7 @@ import { SignupComponent } from './signup/signup.component';
     CustomerItemComponent,
     EditCustomerComponent,
     SignupComponent,
+    SidenavComponent,
 
   ],
   imports: [

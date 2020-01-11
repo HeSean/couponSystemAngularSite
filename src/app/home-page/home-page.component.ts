@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { DataStorageService } from '../shared/data-storage.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { DataStorageService } from '../shared/data-storage.service';
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements OnInit, AfterContentChecked {
 
 
   loggedIn = false;
@@ -19,4 +19,9 @@ export class HomePageComponent implements OnInit {
     }
   }
 
+  ngAfterContentChecked(): void {
+    if (this.storageService.getToken() !== '') {
+      this.loggedIn = true;
+    }
+  }
 }
