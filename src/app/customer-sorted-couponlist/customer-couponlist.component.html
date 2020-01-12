@@ -1,43 +1,60 @@
-<div>
+<div class="row">
+
   <h1 style="text-align: center;">Purchased Coupons</h1>
   <br>
-  <div class="btn-toolbar">
-    <button class="btn btn-primary" (click)="refreshList()"> All Purchased Coupons </button>
-    <button class="btn btn-primary" (click)="getCouponsByDate()"> Sort By Date </button>
-    <button class="btn btn-primary" (click)="priceBox=!priceBox"> Sort By Price </button>
-  </div>
-
-  <div *ngIf="priceBox">
-    <hr>
-    <input type="text" [(ngModel)]="priceValue" />
-    <br>
+  <div class="col-xs-12" >
     <div class="btn-toolbar">
-      <button class="btn btn-primary" (click)="getCouponsByPrice(priceValue)">Sort</button>
+      <button class="btn btn-primary" (click)="refreshList()"> All Purchased Coupons </button>
+      <button class="btn btn-primary" (click)="dateBox=!dateBox"> Sort By Date </button>
+      <button class="btn btn-primary" (click)="priceBox=!priceBox"> Sort By Price </button>
     </div>
-  </div>
 
 
-  <hr>
+    <div class="row" *ngIf="priceBox">
+      <div class="col-xs-12">
+        <hr>
+        <input type="text" [(ngModel)]="priceValue" style="color: black;" />
+        <br>
+        <button class="btn btn-primary" (click)="getCouponsByPrice(priceValue)">Sort</button>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="dateBox">
+      <div class="col-xs-12">
+        <hr>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="Before - " (dateChange)="getCouponsByDate($event)">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <br>
+      </div>
+    </div>
+    <hr>
+
 
   <ul *ngFor="let item of coupons">
-    <a class="list-group-item clearfix" style="cursor: pointer; width: 1070px;">
+      <a class="list-group-item clearfix" style="cursor: pointer;">
 
-      <div class="pull-left">
-        <h3 class="list-group-item-text">{{item.name}}</h3>
+        <div class="pull-left">
+          <h3 class="list-group-item-text">{{item.name}}</h3>
 
-        <p class="list-group-item-text" style="font-weight: bold;">{{item.message}}</p>
-        <p class="list-group-item-text" style="font-weight: bold;">Type - {{item.type}}</p>
-        <p class="list-group-item-text">Price - {{item.price}}</p>
-      </div>
+          <p class="list-group-item-text" style="font-weight: bold;">{{item.message}}</p>
+          <p class="list-group-item-text" style="font-weight: bold;">Type - {{item.type}}</p>
+          <p class="list-group-item-text">Price - {{item.price}}</p>
+          <p class="list-group-item-text">End date - {{item.endDate}}</p>
 
-      <span class="pull-right">
-        <img [src]="item.image" alt={{item.image}} class="img-responsive" style="max-height: 100px; padding-right: 0;">
-      </span>
-    </a>
-    <hr>
-  </ul>
+        </div>
 
+        <span class="pull-right">
+          <img [src]="item.image" alt={{item.image}} class="img-responsive"
+            style="max-height: 100px; padding-right: 0;">
+        </span>
+      </a>
+      <hr>
+    </ul>
 
+  </div>
 
 
 

@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DataStorageService } from '../shared/data-storage.service';
 import { Coupon } from '../shared/coupon.model';
+import { MatDatepickerInputEvent } from '@angular/material';
+import { formatDate } from '@angular/common';
+
 
 @Component({
   selector: 'app-customer-couponlist',
@@ -13,6 +16,7 @@ export class CustomerSortedCouponlistComponent implements OnInit {
   token = '';
   priceValue = 0;
   priceBox = false;
+  dateBox = false;
 
 
 
@@ -20,7 +24,7 @@ export class CustomerSortedCouponlistComponent implements OnInit {
     private storageService: DataStorageService) { }
 
   ngOnInit() {
-    this.token = this.storageService.getToken();
+    this.token = 'ef699931-e7cd-47bf-8b5f-a88de4a32520'; //    this.storageService.getToken();
     this.refreshList();
   }
 
@@ -30,9 +34,17 @@ export class CustomerSortedCouponlistComponent implements OnInit {
     });
   }
 
-  getCouponsByDate() {
-    const date = Date.now.toString();
-    this.storageService.getCouponByDate(this.token, date).subscribe(res => {
+  getCouponsByDate(event: MatDatepickerInputEvent<Date>) {
+    const tempDate = event.value.toString();
+    const day = tempDate.slice(8, 10);
+    const month = event.value.getMonth() + 1;
+    const year = event.value.getUTCFullYear();
+    const dateString = year + '-' + month + '-' + day;
+    console.log('formatted date - ' + dateString);
+
+
+    this.storageService.getCouponByDate(this.token, dateString).subscribe(res => {
+      this.dateBox = !this.dateBox;
       console.log(res.body);
       this.coupons = res.body;
     });

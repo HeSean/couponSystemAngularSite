@@ -31,6 +31,11 @@ import { SignupComponent } from './signup/signup.component';
 import { SidenavComponent } from './header/sidenav/sidenav.component';
 import { CustomerAvailableCouponlistComponent } from './customer-available-couponlist/customer-couponlist.component';
 import { CustomerSortedCouponlistComponent } from './customer-sorted-couponlist/customer-couponlist.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material';
+import { MatInputModule } from '@angular/material';
+import { MatNativeDateModule } from '@angular/material';
+
 
 
 
@@ -69,11 +74,11 @@ import { CustomerSortedCouponlistComponent } from './customer-sorted-couponlist/
     MatButtonModule,
     MatIconModule,
     MatCardModule,
-    FormsModule
-    // NbThemeModule.forRoot({ name: 'default' }),
-    // NbLayoutModule,
-    // NbEvaIconsModule,
-    // NbMenuModule.forRoot()
+    FormsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule
   ],
   providers: [DataStorageService],
   bootstrap: [AppComponent]

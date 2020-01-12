@@ -12,6 +12,8 @@
         <p class="list-group-item-text" style="font-weight: bold;">Type - {{item.type}}</p>
         <p class="list-group-item-text">Price - {{item.price}}</p>
         <p class="list-group-item-text">(Amount Left - {{item.amount}})</p>
+        <p class="list-group-item-text">End date - {{item.endDate}}</p>
+
       </div>
 
       <span class="pull-right">
@@ -26,4 +28,4 @@
   </ul>
 </div>
 
-<h3 *ngIf="coupons.length == 0">No Available Coupons left to buy</h3>
+<h3 *ngIf="coupons == undefined">No Available Coupons left to buy</h3>
