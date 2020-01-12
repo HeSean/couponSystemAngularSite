@@ -13,7 +13,7 @@ import { Company } from 'src/app/shared/company.model';
 export class EditCompanyComponent implements OnInit {
 
   companyForm: FormGroup;
-  id: number;
+  id = 0;
   editMode = false;
   token = '';
 
@@ -54,11 +54,12 @@ export class EditCompanyComponent implements OnInit {
       this.companyForm.controls.compName.value,
       this.companyForm.controls.password.value,
       this.companyForm.controls.email.value);
+    console.log(company);
 
     if (this.editMode) {
-      this.storageService.updateCompany(this.token, this.id, this.companyForm.value);
+      this.storageService.updateCompany(this.token, this.id, company).subscribe();
     } else {
-      this.storageService.createCompany(this.token, this.companyForm.value);
+      this.storageService.createCompany(this.token, company).subscribe();
     }
     this.onCancel();
   }

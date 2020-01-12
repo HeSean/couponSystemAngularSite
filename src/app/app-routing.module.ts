@@ -11,27 +11,29 @@ import { LoginComponent } from './login/login.component';
 import { CustomerListComponent } from './customer/customer-list/customer-list.component';
 import { EditCustomerComponent } from './customer/edit-customer/edit-customer.component';
 import { SignupComponent } from './signup/signup.component';
+import { CustomerAvailableCouponlistComponent } from './customer-available-couponlist/customer-couponlist.component';
+import { CustomerSortedCouponlistComponent } from './customer-sorted-couponlist/customer-couponlist.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomePageComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
+
+  { path: 'companies', component: CompanyListComponent },
+  { path: 'companies/new', component: EditCompanyComponent },
+  { path: 'companies/:id', component: EditCompanyComponent },
+  { path: 'customers', component: CustomerListComponent },
+  { path: 'customers/new', component: EditCustomerComponent },
+  { path: 'customers/:id', component: EditCustomerComponent },
 
   { path: 'coupons', component: CouponlistComponent },
   { path: 'coupons/new', component: EditCouponComponent },
   { path: 'coupons/:id', component: EditCouponComponent },
 
-  { path: 'companies', component: CompanyListComponent },
-  { path: 'companies/new', component: EditCompanyComponent },
-  { path: 'companies/:id', component: EditCompanyComponent },
-
-  { path: 'customers', component: CustomerListComponent },
-  { path: 'customers/new', component: EditCustomerComponent },
-  { path: 'customers/:id', component: EditCustomerComponent },
-
-  { path: 'signup', component: SignupComponent },
-
+  { path: 'customer/available-coupons', component: CustomerAvailableCouponlistComponent },
+  { path: 'customer/purchased-coupons', component: CustomerSortedCouponlistComponent },
 
   { path: 'not-found', component: NotFoundComponent, data: { message: 'Page not found!' } },
   { path: '**', redirectTo: '/not-found' },

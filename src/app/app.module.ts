@@ -29,6 +29,8 @@ import { CustomerItemComponent } from './customer/customer-list/customer-item/cu
 import { EditCustomerComponent } from './customer/edit-customer/edit-customer.component';
 import { SignupComponent } from './signup/signup.component';
 import { SidenavComponent } from './header/sidenav/sidenav.component';
+import { CustomerAvailableCouponlistComponent } from './customer-available-couponlist/customer-couponlist.component';
+import { CustomerSortedCouponlistComponent } from './customer-sorted-couponlist/customer-couponlist.component';
 
 
 
@@ -52,7 +54,8 @@ import { SidenavComponent } from './header/sidenav/sidenav.component';
     EditCustomerComponent,
     SignupComponent,
     SidenavComponent,
-
+    CustomerAvailableCouponlistComponent,
+    CustomerSortedCouponlistComponent
   ],
   imports: [
     BrowserModule,

@@ -21,13 +21,10 @@ export class CouponlistComponent implements OnInit {
 
   ngOnInit() {
     this.token = this.storageService.getToken();
-    console.log(this.token);
     this.refreshList();
   }
 
   refreshList() {
-    console.log(this.token);
-
     this.storageService.getAllCoupons(this.token).subscribe(res => {
       console.log(res);
       this.coupons = res.body;

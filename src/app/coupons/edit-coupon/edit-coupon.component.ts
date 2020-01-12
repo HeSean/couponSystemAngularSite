@@ -3,7 +3,6 @@ import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { CouponType2LabelMapping, CouponType } from 'src/app/shared/CouponType.enum';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
-import { stringify } from 'querystring';
 import { Coupon } from 'src/app/shared/coupon.model';
 
 
@@ -39,7 +38,7 @@ export class EditCouponComponent implements OnInit {
 
   private initForm() {
     this.couponForm = new FormGroup({
-      title: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required]),
       startDate: new FormControl('', [Validators.required]),
       endDate: new FormControl('', Validators.required),
       amount: new FormControl(0, Validators.required),
@@ -51,24 +50,44 @@ export class EditCouponComponent implements OnInit {
 
     if (this.editMode) {
       this.storageService.getCoupon(this.token, this.id).subscribe(res => {
-        this.couponForm.controls.title.setValue(res.body.title);
+        this.couponForm.controls.name.setValue(res.body.name);
         this.couponForm.controls.amount.setValue(res.body.amount);
         this.couponForm.controls.price.setValue(res.body.price);
         this.couponForm.controls.message.setValue(res.body.message);
         this.couponForm.controls.imagePath.setValue(res.body.image);
-        this.couponForm.controls.startDate.setValue(res.body.startDate);
-        this.couponForm.controls.endDate.setValue(res.body.endDate);
+        this.couponForm.controls.startDate.setValue(this.reverse(res.body.startDate));
+        this.couponForm.controls.endDate.setValue(this.reverse(res.body.endDate));
       });
     }
   }
 
+  reverse(s) {
+    return s.split('-').reverse().join('-');
+  }
 
+  toDate(s) {
+    return s.split('-').join('/');
+  }
 
   onSubmit() {
+    console.log(this.couponForm.value);
+    console.log(this.couponForm.controls.startDate.value);
+    const coupon = new Coupon(
+      this.id,
+      this.couponForm.controls.name.value,
+      this.couponForm.controls.startDate.value,
+      this.couponForm.controls.endDate.value,
+      this.couponForm.controls.amount.value,
+      this.couponForm.controls.type.value,
+      this.couponForm.controls.message.value,
+      this.couponForm.controls.price.value,
+      this.couponForm.controls.imagePath.value
+    );
+
     if (this.editMode) {
-      this.storageService.updateCoupon(this.token, this.id, this.couponForm.value);
+      this.storageService.updateCoupon(this.token, this.id, coupon).subscribe();
     } else {
-      this.storageService.createCoupon(this.token, this.couponForm.value);
+      this.storageService.createCoupon(this.token, coupon).subscribe();
     }
     this.onCancel();
   }
@@ -77,9 +96,6 @@ export class EditCouponComponent implements OnInit {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
-  logForm() {
-    console.log(this.couponForm);
-  }
 
 
 }

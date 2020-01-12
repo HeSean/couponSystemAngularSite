@@ -12,10 +12,8 @@
   </b>
 
   <b id="customer-navbar" *ngIf="currentUser == 'CUSTOMER'">
-    <a mat-list-item [routerLink]="'/coupons'"> All Coupons List </a>
-    <a mat-list-item [routerLink]="'/coupons'"> Purchased Coupons List </a>
-    <a mat-list-item [routerLink]="'/coupons'"> Purchased Coupons List By Type</a>
-    <a mat-list-item [routerLink]="'/coupons'"> Purchased Coupons List By Price</a>
+    <a mat-list-item [routerLink]="'/customer/available-coupons'"> All Available Coupons List </a>
+    <a mat-list-item [routerLink]="'/customer/purchased-coupons'"> Purchased Coupons List </a>
 
   </b>
 </mat-nav-list>

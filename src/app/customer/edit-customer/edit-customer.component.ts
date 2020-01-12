@@ -54,9 +54,9 @@ export class EditCustomerComponent implements OnInit {
 
   onSubmit() {
     if (this.editMode) {
-      this.storageService.updateCustomer(this.token, this.id, this.customerForm.value);
+      this.storageService.updateCustomer(this.token, this.id, this.customerForm.value).subscribe();
     } else {
-      this.storageService.createCustomer(this.token, this.customerForm.value);
+      this.storageService.createCustomer(this.token, this.customerForm.value).subscribe();
     }
     this.onCancel();
   }

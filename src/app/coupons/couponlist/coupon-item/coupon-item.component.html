@@ -1,23 +1,19 @@
-<a
-
-class="list-group-item clearfix"
-[routerLink]="[index]" routerLinkActive="active"
-style="cursor: pointer; width: 700px;">
-
+<a class="list-group-item clearfix" [routerLink]="[index]"
+routerLinkActive="active"
+  style="cursor: pointer; width: 910px;">
 
   <div class="pull-left">
-    <h4 class="list-group-item-heading">{{coupon.title}}</h4>
-    <p class="list-group-item-text">{{coupon.message}}</p>
+
+    <h4 class="list-group-item-text">{{coupon.name}}</h4>
+    <h5 class="list-group-item-text">{{coupon.message}}</h5>
+    <p class="list-group-item-text">Amount - {{coupon.amount}}</p>
+    <p class="list-group-item-text">Price - {{coupon.price}}</p>
+
   </div>
-    <span class="pull-right">
 
-      <img
-
-      [src]="coupon.image"
-      alt={{coupon.image}}
-      class="img-responsive"
-      style="max-height: 50px; padding-right: 0;">
-
-    </span>
+  <span class="pull-right">
+    <img [src]="coupon.image" alt={{coupon.image}} class="img-responsive"
+    style="max-height: 100px; padding-right: 0;">
+  </span>
 
 </a>

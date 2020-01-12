@@ -51,6 +51,8 @@ export class DataStorageService {
   private priceString = 'price=';
   private dateString = 'date=';
   private buyCouponUrl = 'http://localhost:8080/customer/buyCoupon?token=';
+  private getAllAvailableCouponsUrl = 'http://localhost:8080/customer/getAllAvailableCoupons?token=';
+  private getAllPurchasedCouponsUrl = 'http://localhost:8080/customer/getAllPurchasedCoupons?token=';
   private getCouponByPriceUrl = ' http://localhost:8080/customer/getPurchasedCouponByPrice?token=';
   private getCouponByDateUrl = 'http://localhost:8080/customer/getPurchasedCouponByDate?token=';
 
@@ -89,7 +91,7 @@ export class DataStorageService {
 
   updateCompany(token: string, companyId: number, company: Company) {
     const url = this.updateCompanyUrl + token + this.andString + this.companyIdString + companyId;
-    return this.http.post(url, company, { observe: 'response', responseType: 'json' });
+    return this.http.put(url, company, { observe: 'response', responseType: 'json' });
   }
 
   deleteCompany(token: string, companyName: string) {
@@ -114,7 +116,7 @@ export class DataStorageService {
 
   updateCustomer(token: string, customerId: number, customer: Customer) {
     const url = this.updateCustomerUrl + token + this.andString + this.customerIdString + customerId;
-    return this.http.post(url, customer, { observe: 'response', responseType: 'json' });
+    return this.http.put(url, customer, { observe: 'response', responseType: 'json' });
   }
 
   deleteCustomer(token: string, customerName: Customer) {
@@ -168,6 +170,16 @@ export class DataStorageService {
     return this.http.post<Coupon>(url, { observe: 'response', responseType: 'json' });
   }
 
+  getAllAvailableCoupons(token: string) {
+    const url = this.getAllAvailableCouponsUrl + token;
+    return this.http.get<Coupon[]>(url, { observe: 'response', responseType: 'json' });
+  }
+
+  getAllPurchasedCoupons(token: string) {
+    const url = this.getAllPurchasedCouponsUrl + token;
+    return this.http.get<Coupon[]>(url, { observe: 'response', responseType: 'json' });
+  }
+
   getCouponByPrice(token: string, price: number) {
     const url = this.getCouponByPriceUrl + token + this.andString + this.priceString + price;
     return this.http.get<Coupon[]>(url, { observe: 'response', responseType: 'json' });
@@ -190,7 +202,7 @@ export class DataStorageService {
     return this.currentUser;
   }
 
-  setCurrentUser(){
+  setCurrentUser() {
     this.currentUser = 'GUEST';
   }
 
@@ -218,7 +230,7 @@ export class DataStorageService {
         console.log('fetchCoupons zzimz - ' + coupons);
         return coupons.map(coupon => {
           return {
-            ...coupon, title: coupon.title ? coupon.title : ''
+            ...coupon, title: coupon.name ? coupon.name : ''
           };
         });
       }));

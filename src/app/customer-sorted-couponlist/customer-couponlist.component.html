@@ -1,0 +1,47 @@
+<div>
+  <h1 style="text-align: center;">Purchased Coupons</h1>
+  <br>
+  <div class="btn-toolbar">
+    <button class="btn btn-primary" (click)="refreshList()"> All Purchased Coupons </button>
+    <button class="btn btn-primary" (click)="getCouponsByDate()"> Sort By Date </button>
+    <button class="btn btn-primary" (click)="priceBox=!priceBox"> Sort By Price </button>
+  </div>
+
+  <div *ngIf="priceBox">
+    <hr>
+    <input type="text" [(ngModel)]="priceValue" />
+    <br>
+    <div class="btn-toolbar">
+      <button class="btn btn-primary" (click)="getCouponsByPrice(priceValue)">Sort</button>
+    </div>
+  </div>
+
+
+  <hr>
+
+  <ul *ngFor="let item of coupons">
+    <a class="list-group-item clearfix" style="cursor: pointer; width: 1070px;">
+
+      <div class="pull-left">
+        <h3 class="list-group-item-text">{{item.name}}</h3>
+
+        <p class="list-group-item-text" style="font-weight: bold;">{{item.message}}</p>
+        <p class="list-group-item-text" style="font-weight: bold;">Type - {{item.type}}</p>
+        <p class="list-group-item-text">Price - {{item.price}}</p>
+      </div>
+
+      <span class="pull-right">
+        <img [src]="item.image" alt={{item.image}} class="img-responsive" style="max-height: 100px; padding-right: 0;">
+      </span>
+    </a>
+    <hr>
+  </ul>
+
+
+
+
+
+</div>
+<div class="btn-group">
+
+</div>

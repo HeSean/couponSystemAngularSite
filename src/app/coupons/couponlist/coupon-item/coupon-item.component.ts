@@ -14,6 +14,7 @@ export class CouponItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.coupon.name);
   }
 
 }
