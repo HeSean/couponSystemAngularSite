@@ -4,6 +4,8 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { CouponType2LabelMapping, CouponType } from 'src/app/shared/CouponType.enum';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { Coupon } from 'src/app/shared/coupon.model';
+import { MatDatepickerInputEvent } from '@angular/material';
+import { start } from 'repl';
 
 
 @Component({
@@ -18,6 +20,9 @@ export class EditCouponComponent implements OnInit {
   editMode = false;
   couponTypeLabel = CouponType2LabelMapping;
   token = '';
+  startDate;
+  endDate;
+
 
   couponTypes = Object.values(this.couponTypeLabel);
 
@@ -39,8 +44,8 @@ export class EditCouponComponent implements OnInit {
   private initForm() {
     this.couponForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
-      startDate: new FormControl('', [Validators.required]),
-      endDate: new FormControl('', Validators.required),
+      start: new FormControl('', [Validators.required]),
+      end: new FormControl('', Validators.required),
       amount: new FormControl(0, Validators.required),
       type: new FormControl(CouponType.FOOD, Validators.required),
       message: new FormControl('', Validators.required),
@@ -55,39 +60,81 @@ export class EditCouponComponent implements OnInit {
         this.couponForm.controls.price.setValue(res.body.price);
         this.couponForm.controls.message.setValue(res.body.message);
         this.couponForm.controls.imagePath.setValue(res.body.image);
-        this.couponForm.controls.startDate.setValue(this.reverse(res.body.startDate));
-        this.couponForm.controls.endDate.setValue(this.reverse(res.body.endDate));
+        this.couponForm.controls.start.setValue(this.reverse(res.body.startDate));
+        this.couponForm.controls.end.setValue(this.reverse(res.body.endDate));
+        this.couponForm.controls.type.setValue(res.body.type);
       });
     }
   }
 
-  reverse(s) {
-    return s.split('-').reverse().join('-');
+  reverse(str) {
+    return str.split('-').reverse().join('-');
   }
 
-  toDate(s) {
-    return s.split('-').join('/');
+  toDate(str) {
+    return str.split('-').join('/');
+  }
+
+  setStartDate(event: MatDatepickerInputEvent<Date>) {
+    let dateString = '';
+    const tempDate = event.value.toString();
+    const day = tempDate.slice(8, 10);
+    const month = event.value.getMonth() + 1;
+    const year = event.value.getUTCFullYear();
+    if (month < 10) {
+      dateString = year + '-0' + month + '-' + day;
+    } else {
+      dateString = year + '-' + month + '-' + day;
+    }
+    this.startDate = dateString;
+
+  }
+
+  setEndDate(event: MatDatepickerInputEvent<Date>) {
+    let dateString = '';
+    const tempDate = event.value.toString();
+    const day = tempDate.slice(8, 10);
+    const tempDay1 = event.value.getUTCDay();
+    const tempDay2 = event.value.getDay();
+    console.log(tempDay1 + 'or ' + tempDay2);
+    const month = event.value.getMonth() + 1;
+    const year = event.value.getUTCFullYear();
+    if (month < 10) {
+      dateString = year + '-0' + month + '-' + day;
+    } else {
+      dateString = year + '-' + month + '-' + day;
+    }
+    this.endDate = dateString;
   }
 
   onSubmit() {
-    console.log(this.couponForm.value);
-    console.log(this.couponForm.controls.startDate.value);
+    console.log('endDate - ' + this.endDate + ', startDate - ' + this.startDate);
+
+    console.log(this.couponForm.controls.type.value);
+
     const coupon = new Coupon(
       this.id,
       this.couponForm.controls.name.value,
-      this.couponForm.controls.startDate.value,
-      this.couponForm.controls.endDate.value,
+      this.startDate,
+      this.endDate,
       this.couponForm.controls.amount.value,
       this.couponForm.controls.type.value,
       this.couponForm.controls.message.value,
       this.couponForm.controls.price.value,
       this.couponForm.controls.imagePath.value
     );
+    console.log(coupon);
 
     if (this.editMode) {
-      this.storageService.updateCoupon(this.token, this.id, coupon).subscribe();
+      coupon.startDate = this.couponForm.controls.start.value;
+      coupon.endDate = this.couponForm.controls.end.value;
+      this.storageService.updateCoupon(this.token, this.id, coupon).subscribe(res => {
+        console.log(res.body);
+      });
     } else {
-      this.storageService.createCoupon(this.token, coupon).subscribe();
+      this.storageService.createCoupon(this.token, coupon).subscribe(res => {
+        console.log(res.body);
+      });
     }
     this.onCancel();
   }

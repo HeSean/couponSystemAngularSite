@@ -14,7 +14,7 @@ export class Coupon {
 
 
   // full CTOR
-  constructor(id: number, name: string, startDate: string, endDate: string, amount: number,
+  constructor(id: number, name: string, startDate, endDate, amount: number,
     // type: CouponType,
               type: string,
               message: string,
