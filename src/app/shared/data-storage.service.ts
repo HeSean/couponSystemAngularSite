@@ -29,7 +29,7 @@ export class DataStorageService {
 
   private customerIdString = 'customerId=';
   private customerNameString = 'customerName=';
-  private createCustomerUrl = 'http://localhost:8080/admin/addCustomer?token=';
+  private createCustomerUrl = 'http://localhost:8080/admin/createCustomer?token=';
   private getCustomerUrl = 'http://localhost:8080/admin/getCustomer?token=';
   private getAllCustomersUrl = 'http://localhost:8080/admin/getAllCustomers?token=';
   private updateCustomerUrl = 'http://localhost:8080/admin/updateCustomer?token=';

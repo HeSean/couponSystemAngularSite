@@ -68,8 +68,8 @@ export class EditCompanyComponent implements OnInit {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
-  logForm() {
-    console.log(this.companyForm);
+  onDelete() {
+    return this.storageService.deleteCompany(this.token, this.companyForm.controls.compName.value).subscribe();
   }
 
 }

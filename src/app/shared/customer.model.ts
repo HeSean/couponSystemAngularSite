@@ -7,8 +7,7 @@ export class Customer {
   password;
   // email;
 
-  constructor(coupons, id, name, password) {
-    this.coupons = coupons;
+  constructor( id, name, password) {
     this.id = id;
     this.name = name;
     this.password = password;

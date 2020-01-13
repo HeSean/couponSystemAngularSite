@@ -24,7 +24,7 @@ export class CustomerSortedCouponlistComponent implements OnInit {
     private storageService: DataStorageService) { }
 
   ngOnInit() {
-    this.token = 'ef699931-e7cd-47bf-8b5f-a88de4a32520'; //    this.storageService.getToken();
+    this.token = this.storageService.getToken();
     this.refreshList();
   }
 

@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { stringify } from 'querystring';
+import { Customer } from 'src/app/shared/customer.model';
 
 @Component({
   selector: 'app-edit-customer',
@@ -12,7 +13,7 @@ import { stringify } from 'querystring';
 export class EditCustomerComponent implements OnInit {
 
   customerForm: FormGroup;
-  id: number;
+  id = 0;
   editMode = false;
   token = '';
 
@@ -53,14 +54,18 @@ export class EditCustomerComponent implements OnInit {
 
 
   onSubmit() {
+    const customer = new Customer(this.id, this.customerForm.controls.custName.value, this.customerForm.controls.password.value);
     if (this.editMode) {
       this.storageService.updateCustomer(this.token, this.id, this.customerForm.value).subscribe();
     } else {
-      this.storageService.createCustomer(this.token, this.customerForm.value).subscribe();
+      this.storageService.createCustomer(this.token, customer).subscribe();
     }
     this.onCancel();
   }
 
+  onDelete() {
+    return this.storageService.deleteCustomer(this.token, this.customerForm.controls.custName.value).subscribe();
+  }
   onCancel() {
     this.router.navigate(['../'], { relativeTo: this.route });
   }

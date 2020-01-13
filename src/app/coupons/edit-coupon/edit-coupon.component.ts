@@ -96,6 +96,10 @@ export class EditCouponComponent implements OnInit {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
+  onDelete() {
+    return this.storageService.deleteCouponById(this.token, this.id).subscribe();
+  }
+
 
 
 }
