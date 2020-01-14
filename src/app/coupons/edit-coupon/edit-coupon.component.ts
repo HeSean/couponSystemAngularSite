@@ -47,7 +47,7 @@ export class EditCouponComponent implements OnInit {
       start: new FormControl('', [Validators.required]),
       end: new FormControl('', Validators.required),
       amount: new FormControl(0, Validators.required),
-      type: new FormControl(CouponType.FOOD, Validators.required),
+      type: new FormControl(this.couponTypes[0], Validators.required),
       message: new FormControl('', Validators.required),
       price: new FormControl(0, Validators.required),
       imagePath: new FormControl('', Validators.required)
@@ -55,6 +55,7 @@ export class EditCouponComponent implements OnInit {
 
     if (this.editMode) {
       this.storageService.getCoupon(this.token, this.id).subscribe(res => {
+        console.log(res.body);
         this.couponForm.controls.name.setValue(res.body.name);
         this.couponForm.controls.amount.setValue(res.body.amount);
         this.couponForm.controls.price.setValue(res.body.price);
@@ -71,9 +72,6 @@ export class EditCouponComponent implements OnInit {
     return str.split('-').reverse().join('-');
   }
 
-  toDate(str) {
-    return str.split('-').join('/');
-  }
 
   setStartDate(event: MatDatepickerInputEvent<Date>) {
     let dateString = '';
@@ -96,7 +94,6 @@ export class EditCouponComponent implements OnInit {
     const day = tempDate.slice(8, 10);
     const tempDay1 = event.value.getUTCDay();
     const tempDay2 = event.value.getDay();
-    console.log(tempDay1 + 'or ' + tempDay2);
     const month = event.value.getMonth() + 1;
     const year = event.value.getUTCFullYear();
     if (month < 10) {
@@ -108,9 +105,7 @@ export class EditCouponComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('endDate - ' + this.endDate + ', startDate - ' + this.startDate);
-
-    console.log(this.couponForm.controls.type.value);
+    console.log('startDate - ' + this.startDate + ', endDate - ' + this.endDate);
 
     const coupon = new Coupon(
       this.id,
@@ -124,6 +119,7 @@ export class EditCouponComponent implements OnInit {
       this.couponForm.controls.imagePath.value
     );
     console.log(coupon);
+    console.log('Coupons startDate - ' + coupon.startDate + ', endDate - ' + coupon.endDate);
 
     if (this.editMode) {
       coupon.startDate = this.couponForm.controls.start.value;
@@ -143,10 +139,11 @@ export class EditCouponComponent implements OnInit {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
-  onDelete() {
-    return this.storageService.deleteCouponById(this.token, this.id).subscribe();
+  onDelete(name) {
+    if (confirm('Are you sure you want to delete ' + name + ' ?')) {
+      return this.storageService.deleteCouponById(this.token, this.id).subscribe();
+    }
   }
-
 
 
 }

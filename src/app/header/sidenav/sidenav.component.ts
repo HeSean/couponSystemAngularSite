@@ -17,11 +17,14 @@ export class SidenavComponent implements OnInit, AfterContentChecked {
   ngOnInit() { }
 
   ngAfterContentChecked(): void {
-      this.getCurrentUser();
+    this.getCurrentUser();
   }
 
   getCurrentUser() {
-    this.currentUser = this.storageService.getCurrentUser();
+    if (this.storageService.getToken() !== '') {
+      this.currentUser = this.storageService.getCurrentUser();
+    }
   }
+
 
 }

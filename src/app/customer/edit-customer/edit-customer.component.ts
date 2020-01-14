@@ -63,14 +63,13 @@ export class EditCustomerComponent implements OnInit {
     this.onCancel();
   }
 
-  onDelete() {
-    return this.storageService.deleteCustomer(this.token, this.customerForm.controls.custName.value).subscribe();
+  onDelete(name) {
+    if (confirm('Are you sure you want to delete ' + name + ' ?')) {
+      return this.storageService.deleteCustomer(this.token, this.customerForm.controls.custName.value).subscribe();
+    }
   }
   onCancel() {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
-  logForm() {
-    console.log(this.customerForm);
-  }
 }

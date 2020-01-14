@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { SidebarModule } from 'ng-sidebar';
 
 
@@ -80,7 +80,7 @@ import { MatNativeDateModule } from '@angular/material';
     MatInputModule,
     MatNativeDateModule
   ],
-  providers: [DataStorageService],
+  providers: [{ provide: LOCALE_ID, useValue: 'en-IL' }, DataStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
