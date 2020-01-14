@@ -13,6 +13,7 @@ export class CouponlistComponent implements OnInit {
 
   coupons: Coupon[];
   token = '';
+  id = 0;
 
   constructor(
     private storageService: DataStorageService,
@@ -31,8 +32,11 @@ export class CouponlistComponent implements OnInit {
     });
   }
 
-  onSave() {
-
+  viewIncome() {
+    this.storageService.getCompanyId(this.token).subscribe(res => {
+      this.id = +res.body;
+      this.router.navigate(['company/income/', this.id]);
+    });
   }
 
 

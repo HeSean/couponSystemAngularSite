@@ -47,6 +47,7 @@ export class DataStorageService {
   private updateCouponUrl = 'http://localhost:8080/company/updateCoupon/?token=';
   private deleteCouponByNameUrl = 'http://localhost:8080/company/deleteCoupon?token=';
   private deleteCouponByIdUrl = 'http://localhost:8080/company/deleteCouponById?token=';
+  private getCompanyIdUrl = 'http://localhost:8080/company/getCompanyId?token=';
 
   // Customer URL
   private priceString = 'price=';
@@ -169,6 +170,9 @@ export class DataStorageService {
     return this.http.delete(url, { observe: 'response', responseType: 'json' });
   }
 
+  getCompanyId(token: string) {
+    return this.http.get(this.getCompanyIdUrl + token, { observe: 'response', responseType: 'json' });
+  }
 
   // Customer Methods
   buyCoupon(token: string, couponId: number) {
@@ -198,6 +202,22 @@ export class DataStorageService {
     return this.http.get<Coupon[]>(url, { observe: 'response', responseType: 'json' });
   }
 
+
+  // Income Methods
+  viewAllIncome() {
+    return this.http.get<Income[]>(this.viewAllIncomeURL, { observe: 'response', responseType: 'json' });
+  }
+
+  viewAllIncomeByCustomer(customerId) {
+    return this.http.get<Income[]>(this.viewIncomeByCustomerURL + customerId, { observe: 'response', responseType: 'json' });
+  }
+
+  viewAllIncomeByCompany(companyId) {
+    return this.http.get<Income[]>(this.viewIncomeByCompanyURL + companyId, { observe: 'response', responseType: 'json' });
+  }
+
+
+  // Local methods
   setToken(token: string) {
     this.currentToken = token;
   }
@@ -214,16 +234,4 @@ export class DataStorageService {
     this.currentUser = 'GUEST';
   }
 
-  // Income Methods
-  viewAllIncome() {
-    return this.http.get<Income[]>(this.viewAllIncomeURL, { observe: 'response', responseType: 'json' });
-  }
-
-  viewAllIncomeByCustomer(customerId) {
-    return this.http.get<Income[]>(this.viewIncomeByCustomerURL + customerId, { observe: 'response', responseType: 'json' });
-  }
-
-  viewAllIncomeByCompany(companyId) {
-    return this.http.get<Income[]>(this.viewIncomeByCompanyURL + companyId, { observe: 'response', responseType: 'json' });
-  }
 }
