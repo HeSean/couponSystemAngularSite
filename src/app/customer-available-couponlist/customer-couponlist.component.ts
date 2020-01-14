@@ -29,7 +29,7 @@ export class CustomerAvailableCouponlistComponent implements OnInit {
 
   buyCoupon(couponId: number) {
     this.storageService.buyCoupon(this.token, couponId).subscribe(res => {
-      alert('coupon ' + res.name + ' was bought succesfully :)');
+      alert('coupon was bought succesfully :)');
       this.router.navigate(['customer/purchased-coupons']);
     });
   }

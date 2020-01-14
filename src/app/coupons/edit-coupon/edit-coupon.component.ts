@@ -5,7 +5,6 @@ import { CouponType2LabelMapping, CouponType } from 'src/app/shared/CouponType.e
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { Coupon } from 'src/app/shared/coupon.model';
 import { MatDatepickerInputEvent } from '@angular/material';
-import { start } from 'repl';
 
 
 @Component({

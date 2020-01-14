@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { Company } from './company.model';
 import { Customer } from './customer.model';
 import { Observable } from 'rxjs';
+import { Income } from './income.model';
 
 
 @Injectable({
@@ -55,6 +56,13 @@ export class DataStorageService {
   private getAllPurchasedCouponsUrl = 'http://localhost:8080/customer/getAllPurchasedCoupons?token=';
   private getCouponByPriceUrl = ' http://localhost:8080/customer/getPurchasedCouponByPrice?token=';
   private getCouponByDateUrl = 'http://localhost:8080/customer/getPurchasedCouponByDate?token=';
+
+  // Income URL
+  private viewAllIncomeURL = 'http://localhost:8080/income/viewAllIncome';
+  private viewIncomeByCustomerURL = 'http://localhost:8080/income/viewIncomeByCustomer?customerId=';
+  private viewIncomeByCompanyURL = 'http://localhost:8080/income/viewIncomeByCompany?companyId=';
+
+
 
   constructor(private http: HttpClient) { }
 
@@ -204,5 +212,18 @@ export class DataStorageService {
 
   setCurrentUser() {
     this.currentUser = 'GUEST';
+  }
+
+  // Income Methods
+  viewAllIncome() {
+    return this.http.get<Income[]>(this.viewAllIncomeURL, { observe: 'response', responseType: 'json' });
+  }
+
+  viewAllIncomeByCustomer(customerId) {
+    return this.http.get<Income[]>(this.viewIncomeByCustomerURL + customerId, { observe: 'response', responseType: 'json' });
+  }
+
+  viewAllIncomeByCompany(companyId) {
+    return this.http.get<Income[]>(this.viewIncomeByCompanyURL + companyId, { observe: 'response', responseType: 'json' });
   }
 }

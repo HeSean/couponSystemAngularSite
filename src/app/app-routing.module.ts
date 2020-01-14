@@ -13,6 +13,9 @@ import { EditCustomerComponent } from './customer/edit-customer/edit-customer.co
 import { SignupComponent } from './signup/signup.component';
 import { CustomerAvailableCouponlistComponent } from './customer-available-couponlist/customer-couponlist.component';
 import { CustomerSortedCouponlistComponent } from './customer-sorted-couponlist/customer-couponlist.component';
+import { IncomeListComponent } from './income-list/income-list.component';
+import { IncomeListByCustomerIdComponent } from './income-list-by-customer-id/income-list-by-customer-id.component';
+import { IncomeListByCompanyIdComponent } from './income-list-by-company-id/income-list-by-company-id.component';
 
 
 const routes: Routes = [
@@ -34,6 +37,9 @@ const routes: Routes = [
 
   { path: 'customer/available-coupons', component: CustomerAvailableCouponlistComponent },
   { path: 'customer/purchased-coupons', component: CustomerSortedCouponlistComponent },
+  { path: 'admin/income', component: IncomeListComponent },
+  { path: 'customer/income/:id', component: IncomeListByCustomerIdComponent },
+  { path: 'company/income/:id', component: IncomeListByCompanyIdComponent },
 
   { path: 'not-found', component: NotFoundComponent, data: { message: 'Page not found!' } },
   { path: '**', redirectTo: '/not-found' },

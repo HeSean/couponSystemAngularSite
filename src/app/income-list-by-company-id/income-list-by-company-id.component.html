@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-xs-12">
+  </div>
+</div>
+
+<h4 *ngIf="isEmpty">No Income records to display</h4>
+
+<div class="row">
+  <div class="col-xs-12">
+    <app-income-item *ngFor="let item of incomes; let i = index" [income]="item" [index]="item.id"></app-income-item>
+  </div>
+</div>
+
+<hr>
+
+<div class="row">
+  <div class="col-xs-12 btn-toolbar">
+    <button class="btn btn-primary" (click)="refreshList()"> Refresh </button>
+
+  </div>
+</div>

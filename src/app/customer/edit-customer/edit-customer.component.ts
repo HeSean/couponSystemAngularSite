@@ -72,4 +72,7 @@ export class EditCustomerComponent implements OnInit {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
+  viewIncome() {
+    this.router.navigate(['customer/income/', this.id]);
+  }
 }

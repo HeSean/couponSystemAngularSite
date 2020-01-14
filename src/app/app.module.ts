@@ -35,6 +35,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 import { MatNativeDateModule } from '@angular/material';
+import { IncomeListComponent } from './income-list/income-list.component';
+import { IncomeItemComponent } from './income-list/income-item/income-item.component';
+import { IncomeListByCustomerIdComponent } from './income-list-by-customer-id/income-list-by-customer-id.component';
+import { IncomeListByCompanyIdComponent } from './income-list-by-company-id/income-list-by-company-id.component';
 
 
 
@@ -60,7 +64,11 @@ import { MatNativeDateModule } from '@angular/material';
     SignupComponent,
     SidenavComponent,
     CustomerAvailableCouponlistComponent,
-    CustomerSortedCouponlistComponent
+    CustomerSortedCouponlistComponent,
+    IncomeListComponent,
+    IncomeItemComponent,
+    IncomeListByCustomerIdComponent,
+    IncomeListByCompanyIdComponent
   ],
   imports: [
     BrowserModule,
