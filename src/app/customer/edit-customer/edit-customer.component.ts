@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
-import { stringify } from 'querystring';
 import { Customer } from 'src/app/shared/customer.model';
 
 @Component({

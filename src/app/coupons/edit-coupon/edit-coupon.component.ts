@@ -79,9 +79,9 @@ export class EditCouponComponent implements OnInit {
     const month = event.value.getMonth() + 1;
     const year = event.value.getUTCFullYear();
     if (month < 10) {
-      dateString = year + '-0' + month + '-' + day;
+      dateString = year + '-0' + month + '-' + day + 'T16:45:42.01Z';
     } else {
-      dateString = year + '-' + month + '-' + day;
+      dateString = year + '-' + month + '-' + day + 'T16:45:42.01Z';
     }
     this.startDate = dateString;
 
@@ -91,20 +91,17 @@ export class EditCouponComponent implements OnInit {
     let dateString = '';
     const tempDate = event.value.toString();
     const day = tempDate.slice(8, 10);
-    const tempDay1 = event.value.getUTCDay();
-    const tempDay2 = event.value.getDay();
     const month = event.value.getMonth() + 1;
     const year = event.value.getUTCFullYear();
     if (month < 10) {
-      dateString = year + '-0' + month + '-' + day;
+      dateString = year + '-0' + month + '-' + day + 'T16:45:42.01Z';
     } else {
-      dateString = year + '-' + month + '-' + day;
+      dateString = year + '-' + month + '-' + day + 'T16:45:42.01Z';
     }
     this.endDate = dateString;
   }
 
   onSubmit() {
-    console.log('startDate - ' + this.startDate + ', endDate - ' + this.endDate);
 
     const coupon = new Coupon(
       this.id,
@@ -117,12 +114,8 @@ export class EditCouponComponent implements OnInit {
       this.couponForm.controls.price.value,
       this.couponForm.controls.imagePath.value
     );
-    console.log(coupon);
-    console.log('Coupons startDate - ' + coupon.startDate + ', endDate - ' + coupon.endDate);
-
+    console.log('Coupon is ' + coupon);
     if (this.editMode) {
-      coupon.startDate = this.couponForm.controls.start.value;
-      coupon.endDate = this.couponForm.controls.end.value;
       this.storageService.updateCoupon(this.token, this.id, coupon).subscribe(res => {
         console.log(res.body);
       });
