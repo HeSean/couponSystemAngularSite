@@ -12,6 +12,14 @@
           </div>
         </div>
 
+
+
+
+
+
+
+
+
         <div class="row">
           <div class="col-xs-12">
             <div class="form-group">
@@ -31,9 +39,10 @@
           </div>
         </div>
 
-
-        <hr>
-        <button class="btn btn-success" (click)="viewIncome()">View Income</button>
+        <div *ngIf="editMode">
+          <hr>
+          <button *ngIf="editMode" class="btn btn-success" (click)="viewIncome()">View Income</button>
+        </div>
 
 
         <hr>
@@ -43,7 +52,8 @@
             <div class="btn-toolbar">
               <button type="submit" class="btn btn-success" [disabled]="!this.companyForm.valid">Save</button>
               <button class="btn btn-danger" (click)="onCancel()">Cancel</button>
-              <button class="btn btn-danger" (click)="onDelete(companyForm.controls.compName.value)">Delete</button>
+              <button class="btn btn-danger" (click)="onDelete(companyForm.controls.compName.value)"
+                *ngIf="editMode">Delete</button>
 
             </div>
           </div>

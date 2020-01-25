@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Coupon } from './coupon.model';
-import { map } from 'rxjs/operators';
 import { Company } from './company.model';
 import { Customer } from './customer.model';
 import { Observable } from 'rxjs';

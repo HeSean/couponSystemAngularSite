@@ -46,7 +46,7 @@ export class EditCouponComponent implements OnInit {
       start: new FormControl('', [Validators.required]),
       end: new FormControl('', Validators.required),
       amount: new FormControl(0, Validators.required),
-      type: new FormControl(this.couponTypes[0], Validators.required),
+      type: new FormControl('', Validators.required),
       message: new FormControl('', Validators.required),
       price: new FormControl(0, Validators.required),
       imagePath: new FormControl('', Validators.required)

@@ -29,4 +29,8 @@ export class CompanyListComponent implements OnInit {
       this.companies = res.body;
     });
   }
+
+
+
+
 }

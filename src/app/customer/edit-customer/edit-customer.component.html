@@ -20,10 +20,10 @@
             </div>
           </div>
         </div>
-
-        <hr>
-        <button class="btn btn-success" (click)="viewIncome()">View Income</button>
-
+        <div *ngIf="editMode">
+          <hr>
+          <button *ngIf="editMode" class="btn btn-success" (click)="viewIncome()">View Income</button>
+        </div>
         <hr>
 
         <div class="row">
@@ -31,7 +31,7 @@
             <div class="btn-toolbar">
               <button type="submit" class="btn btn-success" [disabled]="!this.customerForm.valid">Save</button>
               <button type="submit" class="btn btn-danger" (click)="onCancel()">Cancel</button>
-              <button class="btn btn-danger" (click)="onDelete(customerForm.controls.custName.value)">Delete</button>
+              <button class="btn btn-danger" (click)="onDelete(customerForm.controls.custName.value)" *ngIf="editMode">Delete</button>
             </div>
           </div>
         </div>
